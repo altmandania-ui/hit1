@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>bye-bye!!! (this is the start)</title>
+<title>bye-bye!!! dania altman (this is the start)</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🥴%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
   html, body { margin: 0; overflow-x: hidden; }
   body {
     font-family: 'Times New Roman', Times, serif; font-size: 17px; color: #000;
-    background: var(--lime) url(images/snacks.jpg) 0 0 / 90px 90px;
+    background: var(--lime) url(images/me-deadpan.jpg) 0 0 / 76px 76px;
     cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Ctext y='36' font-size='36'%3E📸%3C/text%3E%3C/svg%3E") 4 4, crosshair;
   }
   a, button, label, .tb { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Ctext y='36' font-size='36'%3E👉%3C/text%3E%3C/svg%3E") 4 4, pointer; }
@@ -49,7 +49,7 @@
   .nav .counter { writing-mode: vertical-rl; font-family: 'Courier New', monospace; background: #000; color: var(--lime); font-size: 12px; padding: 6px 2px; }
 
   /* ---------- desktop of windows ---------- */
-  .desktop { position: relative; min-height: 960px; margin-left: 70px; background: linear-gradient(135deg, #008080, #008080 60%, var(--pink)); border-block: 10px solid #000; overflow: hidden; }
+  .desktop { position: relative; min-height: 1720px; margin-left: 70px; background: linear-gradient(135deg, #008080, #008080 60%, var(--pink)); border-block: 10px solid #000; overflow: hidden; }
   .desktop-label { position: absolute; left: 18px; top: 14px; font-family: 'Anton', sans-serif; font-size: clamp(40px, 9vw, 120px); color: rgba(255,255,255,.18); line-height: .85; pointer-events: none; text-transform: uppercase; }
   .win { position: absolute; width: 330px; background: var(--gray); border: 3px outset #fff; box-shadow: 8px 8px 0 #000; font-family: 'Courier New', monospace; font-size: 15px; }
   .win.dragging { box-shadow: 18px 18px 0 var(--pink); }
@@ -123,17 +123,52 @@
   .popup .wb { display: flex; gap: 10px; align-items: center; }
   .popup .wb img { width: 70px; height: 70px; flex: none; object-fit: cover; }
 
+  /* ---------- even weirder ---------- */
+  #world { transform-origin: 50% 30vh; will-change: transform; }
+  #world.melting { filter: url(#melt); }
+  #world.flipped { transform: rotate(180deg) !important; transition: transform .8s cubic-bezier(.5,-0.6,.5,1.6); }
+
+  .loader { position: fixed; inset: 0; z-index: 2000; background: var(--blue); color: #fff; display: grid; place-content: center; gap: 18px; text-align: center; font-family: 'Courier New', monospace; font-size: 18px; }
+  .loader.gone { display: none; }
+  .loader b { font-family: 'Anton', sans-serif; font-weight: 400; font-size: clamp(34px, 7vw, 80px); color: var(--yellow); letter-spacing: .05em; }
+  .loader .bar { width: min(520px, 80vw); height: 34px; border: 4px inset var(--gray); background: #fff; margin: 0 auto; }
+  .loader .bar i { display: block; height: 100%; width: 0; background: repeating-linear-gradient(90deg, var(--lime) 0 18px, transparent 18px 22px); }
+  .loader small { opacity: .7; }
+
+  .eyes { position: absolute; z-index: 5; display: flex; gap: 2px; pointer-events: none; rotate: var(--r, 0deg); }
+  .eye { width: var(--s, 28px); height: var(--s, 28px); border-radius: 50%; background: #fff; border: 2px solid #000; position: relative; box-shadow: 1px 2px 0 rgba(0,0,0,.4); }
+  .eye i { position: absolute; width: 46%; height: 46%; left: 27%; top: 27%; border-radius: 50%; background: #000; transition: transform .08s; }
+
+  .hero h2 span { cursor: pointer; transition: transform .25s cubic-bezier(.3,1.6,.5,1); }
+
+  .panic { position: fixed; right: 18px; bottom: 18px; z-index: 500; width: 120px; height: 120px; border-radius: 50%; border: 8px solid #600; background: radial-gradient(circle at 35% 30%, #ff6b6b, var(--red) 55%, #900);
+    color: #fff; font-family: 'Anton', sans-serif; font-size: 18px; line-height: 1; text-transform: uppercase; box-shadow: 0 10px 0 #400, 0 14px 24px rgba(0,0,0,.5); animation: throb 1.2s ease-in-out infinite; }
+  .panic:active { translate: 0 8px; box-shadow: 0 2px 0 #400; }
+  @keyframes throb { 50% { scale: 1.08; } }
+
+  .yearbook { margin-left: 70px; padding: 60px 20px 80px; background: radial-gradient(circle at 30% 40%, #5b2bd6, #1a0b45 60%, #000); display: flex; flex-wrap: wrap; gap: 40px; align-items: center; justify-content: center; overflow: hidden; }
+  .goldframe { margin: 0; padding: 26px; background: linear-gradient(135deg, #8a6d1d, #ffe680 25%, #b8901f 50%, #fff2a8 75%, #7a5c10); border: 6px ridge #c9a227; box-shadow: 0 0 0 10px #3b2a05, 0 30px 60px rgba(0,0,0,.6); rotate: -4deg; }
+  .goldframe img { width: 300px; height: 375px; object-fit: cover; border: 4px inset #c9a227; }
+  .goldframe figcaption { text-align: center; font-family: 'Papyrus', 'Permanent Marker', fantasy; font-size: 20px; margin-top: 12px; color: #3b2a05; }
+  .yearbook .votes { max-width: 380px; color: var(--yellow); font-family: 'Comic Sans MS', cursive; font-size: 20px; }
+  .yearbook .votes h2 { font-family: 'Rubik Glitch', 'Anton', sans-serif; font-weight: 400; font-size: clamp(44px, 7vw, 84px); line-height: .9; margin: 0 0 16px; color: var(--lime); }
+  .yearbook .votes li { margin-bottom: 6px; }
+  .yearbook .votes li:nth-child(even) { font-family: 'Times New Roman', serif; font-style: italic; color: var(--pink); }
+
   @media (max-width: 700px) {
     .nav { width: 46px; }
     .nav a { font-size: 14px; }
     .nav .counter { display: none; }
     .fakefooter, .byebye { padding-left: 58px; }
     .desktop, .roll-wrap, .contact, .hero { margin-left: 46px; }
-    .desktop { min-height: 1700px; }
+    .desktop { min-height: 3000px; }
     .win { width: min(300px, calc(100vw - 80px)); }
     .byebye .bigphoto { width: 110px; height: 200px; top: 60px; }
     .byebye p { margin-left: 0; }
     .form { margin-left: 0; }
+    .yearbook { margin-left: 46px; }
+    .goldframe img { width: 200px; height: 250px; }
+    .panic { width: 86px; height: 86px; font-size: 14px; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -152,11 +187,23 @@
   <span class="counter">visitor #<span id="visits">000003</span></span>
 </nav>
 
+<div class="loader" id="loader" role="status">
+  <b>LOADING WEBSITE…</b>
+  <div class="bar"><i id="barFill"></i></div>
+  <span id="loadMsg">0% · downloading vibes</span>
+  <small>(click anywhere to skip, coward)</small>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="melt"><feTurbulence id="meltNoise" type="turbulence" baseFrequency="0.012 0.04" numOctaves="2" seed="3"/><feDisplacementMap id="meltMap" in="SourceGraphic" scale="0"/></filter>
+</svg>
+
+<div id="world">
 <div class="fakefooter faller">
-  <span>© 1999–<span id="year"></span> [YOUR NAME] ALL RIGHTS RESERVED (NONE)</span>
+  <span>© 1999–<span id="year"></span> DANIA ALTMAN ALL RIGHTS RESERVED (NONE) · SOFI, MOFFI, TOFFY &amp; TOVA RESERVE THE RIGHT TO SIT ON THE KEYBOARD</span>
   <a href="#start">back to top (it's at the bottom)</a>
   <span>best viewed in Netscape Navigator 4.0 at 800×600</span>
-  <span>webmaster: [your@email]</span>
+  <span>webmaster: unreachable</span>
 </div>
 
 <header class="byebye faller">
@@ -165,7 +212,7 @@
   <p>thank u 4 visiting. the start is at the bottom ↓↓↓</p>
 </header>
 
-<marquee scrollamount="12" class="faller">✦ eh-oh ✦ under construction since 2003 ✦ [your name] ✦ photos from the night ✦ no context will be provided ✦ again! again! ✦</marquee>
+<marquee scrollamount="12" class="faller">✦ eh-oh ✦ under construction since 2003 ✦ dania altman ✦ 29 ✦ 4 cats ✦ 2 kids ✦ 1 ben ✦ 1000 poppy seeds ✦ i like weird things ✦ photos from the night ✦ no context will be provided ✦ again! again! ✦</marquee>
 <marquee scrollamount="3" direction="right" class="slow faller">this website is intentionally bad. if you think it's good, something went wrong. ⚠️ <span class="blink">NEW!!</span></marquee>
 
 <section class="desktop" aria-label="Desktop. Drag the windows around.">
@@ -174,10 +221,10 @@
   <div class="win faller" id="abuot" style="left: 4%; top: 120px; rotate: -2deg">
     <div class="tb"><span>about_me.txt</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
-      <img src="images/bathroom.jpg" alt="Purple furry costume taking a flash mirror selfie in a graffiti bathroom">
-      <h2>hi i'm [Your Name]</h2>
-      <p>[age] years old. i live somewhere over the hills and far away.</p>
-      <p><span class="mirror">[a sentence about you, written backwards so you have to work for it]</span></p>
+      <img src="images/me-side.jpg" alt="Me looking to the side, stretched a little wider than reality">
+      <h2>hi i'm Dania</h2>
+      <p>29 years old. i live with my husband ben, our two kids, and four cats who are in charge. i bake, i make cats wear suits (digitally), and i like weird things.</p>
+      <p><span class="mirror">i'm doing a design master's and they told me to make it weird. so i did. you're welcome.</span></p>
     </div>
   </div>
 
@@ -186,7 +233,7 @@
     <div class="wb">
       <img src="images/snacks.jpg" alt="Green furry costume holding an armful of snacks in a shop" style="height: 120px">
       <p>click them. or don't. i'm a website not a cop.</p>
-      <div class="chips"><button class="chip">[Hobby 1]</button><button class="chip">[Hobby 2]</button><button class="chip">[Hobby 3]</button></div>
+      <div class="chips"><button class="chip">weird things</button><button class="chip">my 4 cats</button><button class="chip">my two kids</button><button class="chip">ben (most days)</button><button class="chip">poppy seeds</button><button class="chip">cats in suits</button></div>
     </div>
   </div>
 
@@ -194,7 +241,7 @@
     <div class="tb"><span>facts.zip (corrupted)</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
       <img src="images/laundry.jpg" alt="Yellow furry costume asleep on a washing machine" style="height: 150px; object-fit: fill">
-      <p><b>FUN FACT:</b> <span id="fact">[Fun fact #1]</span></p>
+      <p><b>FUN FACT:</b> <span id="fact">i have 4 cats and their names rhyme. mostly.</span></p>
       <button class="winbtn" id="nextFact">Next fact</button>
     </div>
   </div>
@@ -208,11 +255,78 @@
       <button class="winbtn" id="hug">Use a hug</button>
     </div>
   </div>
+
+  <div class="win faller" id="cats" style="left: 55%; top: 860px; width: 340px; rotate: -3deg">
+    <div class="tb"><span>the_management.jpg</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
+    <div class="wb">
+      <img src="images/cats.jpg" alt="Four cats on a couch wearing tiny antenna hats, looking unimpressed" style="height: 220px; object-fit: cover">
+      <p>the real bosses of the house. click a name:</p>
+      <div class="chips cats"><button class="chip">sofi</button><button class="chip">moffi</button><button class="chip">toffy</button><button class="chip">tova</button></div>
+    </div>
+  </div>
+
+  <div class="win faller" style="left: 70%; top: 110px; width: 330px; rotate: 4deg">
+    <div class="tb"><span>AI_vs_reality.exe</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
+    <div class="wb">
+      <div style="display:flex; gap:8px">
+        <figure style="margin:0; flex:1"><img src="images/me-ai.jpg" alt="An AI-generated dreamy portrait of me in a field at sunset" style="height:200px; object-fit:cover"><figcaption>how the AI sees me</figcaption></figure>
+        <figure style="margin:0; flex:1"><img src="images/me-deadpan.jpg" alt="Me, deadpan, plain background" style="height:200px; object-fit:fill"><figcaption>me at 7am</figcaption></figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="win faller" style="left: 30%; top: 1210px; width: 380px; rotate: -2deg">
+    <div class="tb"><span>i_bake_things.jpg</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
+    <div class="wb">
+      <div style="display:grid; grid-template-columns: 1.2fr 1fr; gap:6px">
+        <img src="images/bake-cake.jpg" alt="A homemade Saint-Honoré cake with cream and choux puffs" style="height:260px; object-fit:cover; grid-row: span 2">
+        <img src="images/bake-dough.jpg" alt="Dough with poppy seeds and cubes of butter" style="height:127px; object-fit:cover">
+        <img src="images/bake-cherry.jpg" alt="A long pastry topped with meringue and cherries" style="height:127px; object-fit:cover; filter:hue-rotate(90deg)">
+      </div>
+      <p>saint-honoré: 6 hours. eaten: 6 minutes. poppy seeds: everywhere.</p>
+    </div>
+  </div>
+
+  <div class="win faller" style="left: 64%; top: 1290px; width: 300px; rotate: 5deg">
+    <div class="tb"><span>my_art.ai (cats in suits)</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
+    <div class="wb">
+      <div style="display:flex; gap:6px"><img src="images/cat-suit.jpg" alt="My AI art: a cat in a suit and tie on an armchair by a fireplace" style="height:140px; object-fit:cover"><img src="images/cat-glass.jpg" alt="My AI art: a cat in sunglasses drinking from a glass with a purple straw" style="height:140px; object-fit:cover"></div>
+      <p>i made these. i regret nothing. the cat in the suit is now my lawyer.</p>
+    </div>
+  </div>
+
+  <div class="win faller" style="left: 8%; top: 790px; width: 420px; rotate: 2deg">
+    <div class="tb"><span>LinkedIn — my 9 to 5.pdf</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
+    <div class="wb">
+      <img src="images/meeting.jpg" alt="The four costumed friends in ties at a serious boardroom meeting with a pie chart" style="height: 200px">
+      <p><b>Dania Altman</b> · Chief Eh-oh Officer · Design MA candidate · Q3 strategy: more cats, fewer pie charts. <a href="#contcat">Connect ↗</a></p>
+    </div>
+  </div>
 </section>
 
 <section class="roll-wrap" id="galery">
   <h2>camera roll <span>(scroll sideways, like a crab)</span> →→→</h2>
   <div class="roll" id="roll"></div>
+</section>
+
+<section class="yearbook" aria-label="Yearbook">
+  <figure class="goldframe">
+    <img src="images/picday.jpg" alt="School picture day portrait of the yellow costume in front of a laser background, hands under chin" loading="lazy">
+    <figcaption>picture day, 1998</figcaption>
+  </figure>
+  <div class="votes">
+    <h2>yearbook superlatives</h2>
+    <ul>
+      <li>most likely to eh-oh</li>
+      <li>best tummy screen</li>
+      <li>most likely to fall asleep in a laundromat</li>
+      <li>class clown (literally a costume)</li>
+      <li>most likely to adopt a 5th cat</li>
+      <li>best mom (the kids voted, it was rigged)</li>
+      <li>most likely to put poppy seeds on it</li>
+      <li>most likely to make ben wear the costume</li>
+    </ul>
+  </div>
 </section>
 
 <section class="contact" id="contcat">
@@ -228,17 +342,21 @@
 
 <section class="hero" id="start">
   <small>fig. 1 — the beginning. you made it. you scrolled the wrong way and it worked.</small>
-  <h2 id="title" aria-label="Eh-oh! I'm [Your Name]"></h2>
-  <p>Welcome to my website. This paragraph is very narrow and justified on purpose so the gaps between the words get really big and uncomfortable to read. Design master's degree, baby.</p>
-  <img class="face" src="images/party.jpg" alt="Me in a yellow costume at a party, squashed flat">
+  <h2 id="title" aria-label="Eh-oh! I'm Dania Altman"></h2>
+  <p>Welcome to my website. I'm Dania, 29, mom, baker, cat person. This paragraph is very narrow and justified on purpose so the gaps between the words get really big and uncomfortable to read. Design master's degree, baby.</p>
+  <img class="face" src="images/me-dance.jpg" alt="Me dancing in a white dress, squashed flat">
 </section>
 
+</div><!-- /world -->
+
+<button class="panic" id="panic">do not press</button>
 <button class="rebuild" id="rebuild">↺ rebuild website</button>
 
 <script>
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const $ = s => document.querySelector(s);
   const photos = ['party', 'bathroom', 'snacks', 'laundry', 'karaoke', 'curb'].map(p => `images/${p}.jpg`);
+  const allPhotos = [...photos, 'images/picday.jpg', 'images/meeting.jpg', 'images/cats.jpg', 'images/me-deadpan.jpg', 'images/me-boots.jpg', 'images/bake-cake.jpg', 'images/cat-suit.jpg', 'images/cat-glass.jpg'];
   $('#year').textContent = new Date().getFullYear();
 
   // visitor counter that only ever shows tiny numbers
@@ -246,7 +364,7 @@
 
   // ---- the title: every letter gets its own font via CSS nth-child ----
   const title = $('#title');
-  [..."Eh-oh! I'm [Your Name]"].forEach(ch => {
+  [..."Eh-oh! I'm Dania Altman"].forEach(ch => {
     const s = document.createElement('span');
     s.textContent = ch === ' ' ? ' ' : ch;
     s.setAttribute('aria-hidden', 'true');
@@ -294,7 +412,20 @@
   document.querySelectorAll('.chip').forEach(b => b.addEventListener('click', () => b.classList.toggle('on')));
 
   // ---- facts: the button runs away 3 times, then gives up ----
-  const facts = ['[Fun fact #1]', '[Fun fact #2]', '[Fun fact #3]'];
+  const facts = [
+    'i have 4 cats and their names rhyme. mostly.',
+    'sofi, moffi, toffy… and tova, who refused to rhyme.',
+    'i once spent 6 hours making a saint-honoré. it survived 6 minutes.',
+    'i put poppy seeds on everything. everything.',
+    'i make ai pictures of cats in suits. it is a lifestyle, not a phase.',
+    'i have more photos of dough on my phone than photos of myself.',
+    'i can dance at a wedding for 5 hours straight. photo evidence at the bottom.',
+    'my resting face is a passport photo. see: the wallpaper of this website.',
+    'my kids already know this website is weird.',
+    'i fix every vr bug by turning gravity off. it works every time (it does not).',
+    'ben knew about the weird things before the wedding. he married me anyway.',
+    "i'm 29. this website is from 1999. do the math.",
+  ];
   let f = 0, dodges = 0;
   const nf = $('#nextFact');
   nf.addEventListener('pointerenter', e => {
@@ -331,13 +462,12 @@
   // ---- contact: sending makes the website fall over ----
   $('#form').addEventListener('submit', e => {
     e.preventDefault();
-    const name = $('#f-name').value, msg = $('#f-msg').value;
     document.querySelectorAll('.faller, .win, .roll figure, .hero h2 span').forEach(el => {
       el.classList.add('faller');
       el.style.transform = `translateY(${innerHeight + 400}px) rotate(${Math.random() * 160 - 80}deg)`;
     });
     document.body.classList.add('fallen');
-    setTimeout(() => { location.href = `mailto:[your@email]?subject=${encodeURIComponent('eh-oh from ' + name)}&body=${encodeURIComponent(msg)}`; }, 1500);
+    $('#rebuild').textContent = '↺ message sent to the void. rebuild website';
   });
   $('#rebuild').addEventListener('click', () => {
     document.querySelectorAll('.faller').forEach(el => el.style.transform = '');
@@ -350,13 +480,104 @@
     if (e.pointerType !== 'mouse' || e.timeStamp - last < 70) return;
     last = e.timeStamp;
     const t = document.createElement('img');
-    t.className = 'trail'; t.src = photos[Math.floor(Math.random() * photos.length)]; t.alt = '';
+    t.className = 'trail'; t.src = allPhotos[Math.floor(Math.random() * allPhotos.length)]; t.alt = '';
     t.style.left = e.clientX + 8 + 'px'; t.style.top = e.clientY + 8 + 'px';
     document.body.appendChild(t); setTimeout(() => t.remove(), 900);
   });
 
+  // ================= EVEN WEIRDER =================
+  const world = $('#world');
+  const say = (text, pitch = 1) => {
+    try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.pitch = pitch; u.rate = .9 + Math.random() * .4; speechSynthesis.speak(u); } catch {}
+  };
+
+  // ---- fake loader: 99%, then backwards, then done ----
+  const loader = $('#loader'), fill = $('#barFill'), lmsg = $('#loadMsg');
+  const steps = [[8, 'downloading vibes'], [23, 'reticulating antennas'], [51, 'polishing tummy screens'], [78, 'hiding the custard'], [99, 'almost…'], [99, 'almost…'], [99, 'still almost…'],
+                 [37, 'oops'], [64, 'ok for real now'], [100, 'eh-oh!']];
+  let li = 0;
+  const finish = () => { loader.classList.add('gone'); clearInterval(lt); };
+  const lt = setInterval(() => {
+    if (li >= steps.length) return finish();
+    const [pct, msg] = steps[li++];
+    fill.style.width = pct + '%'; lmsg.textContent = `${pct}% · ${msg}`;
+  }, reduce ? 60 : 420);
+  loader.addEventListener('click', finish);
+
+  // ---- seasick: the whole site tilts as you scroll ----
+  let tiltRaf = 0;
+  if (!reduce) addEventListener('scroll', () => {
+    cancelAnimationFrame(tiltRaf);
+    tiltRaf = requestAnimationFrame(() => { if (!world.classList.contains('flipped')) world.style.transform = `rotate(${(Math.sin(scrollY / 350) * 2.2).toFixed(2)}deg)`; });
+  }, { passive: true });
+
+  // ---- melt when idle ----
+  const meltMap = $('#meltMap');
+  let idle = 0, melt = 0;
+  const wake = () => { idle = 0; if (melt) { melt = 0; meltMap.setAttribute('scale', 0); world.classList.remove('melting'); } };
+  ['pointermove', 'keydown', 'scroll', 'touchstart'].forEach(ev => addEventListener(ev, wake, { passive: true }));
+  if (!reduce) setInterval(() => {
+    if (++idle < 14 || document.hidden) return;        // ~7s of stillness
+    world.classList.add('melting');
+    melt = Math.min(90, melt + 3);
+    meltMap.setAttribute('scale', melt);
+  }, 500);
+
+  // ---- googly eyes everywhere, watching ----
+  const eyeHosts = ['.byebye', '.win', '.roll-wrap h2', '.contact h2', '.hero', '.goldframe', '.desktop', '.yearbook .votes'];
+  const pupils = [];
+  eyeHosts.forEach(sel => document.querySelectorAll(sel).forEach((host, i) => {
+    if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
+    const e = document.createElement('div');
+    e.className = 'eyes'; e.setAttribute('aria-hidden', 'true');
+    e.style.left = 8 + Math.random() * 75 + '%'; e.style.top = 10 + Math.random() * 60 + '%';
+    e.style.setProperty('--s', 16 + Math.random() * 34 + 'px');
+    e.style.setProperty('--r', (Math.random() * 40 - 20).toFixed(0) + 'deg');
+    e.innerHTML = '<span class="eye"><i></i></span><span class="eye"><i></i></span>';
+    host.appendChild(e);
+    pupils.push(...e.querySelectorAll('i'));
+  }));
+  addEventListener('pointermove', e => {
+    for (const p of pupils) {
+      const r = p.parentElement.getBoundingClientRect();
+      const a = Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2));
+      p.style.transform = `translate(${Math.cos(a) * r.width * .22}px, ${Math.sin(a) * r.height * .22}px)`;
+    }
+  });
+
+  // ---- hero letters run from the cursor and talk when clicked ----
+  const letters = [...title.children];
+  addEventListener('pointermove', e => {
+    if (reduce || e.pointerType !== 'mouse') return;
+    for (const s of letters) {
+      const r = s.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      const dx = cx - e.clientX, dy = cy - e.clientY, d = Math.hypot(dx, dy);
+      s.style.transform = d < 140 ? `translate(${dx / d * (140 - d) * .6}px, ${dy / d * (140 - d) * .6}px)` : '';
+    }
+  });
+  letters.forEach(s => s.addEventListener('click', () => say(s.textContent.trim() || 'space', .2 + Math.random() * 1.8)));
+  $('.byebye h1').addEventListener('click', () => say('bye bye!', .3));
+  document.querySelectorAll('.cats .chip').forEach(c => c.addEventListener('click', () => say(c.textContent + '. meow.', 1.4 + Math.random() * .6)));
+
+  // ---- the tab begs you to come back, the favicon can't decide ----
+  const realTitle = document.title, icon = document.querySelector('link[rel=icon]');
+  document.addEventListener('visibilitychange', () => { document.title = document.hidden ? 'COME BACK 😭😭😭' : 'oh. hi. again.'; if (!document.hidden) setTimeout(() => document.title = realTitle, 2500); });
+  const faces = ['🥴', '👁️', '🧃', '📸', '🫠', '🤡', '🌀'];
+  let fi = 0;
+  setInterval(() => { icon.href = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E${encodeURIComponent(faces[fi++ % faces.length])}%3C/text%3E%3C/svg%3E`; }, 900);
+
+  // ---- do not press ----
+  const panicLines = ['why', 'i said do not', 'ok you can stop now', 'fine'];
+  let presses = 0;
+  $('#panic').addEventListener('click', () => {
+    say(panicLines[Math.min(presses, panicLines.length - 1)], .4);
+    $('#panic').textContent = ['why', 'stop', 'STOP', 'ok fine'][Math.min(presses++, 3)];
+    world.classList.add('flipped');
+    setTimeout(() => { world.classList.remove('flipped'); world.style.transform = ''; }, 3500);
+  });
+
   // ---- surprise pop-ups, max 3 at a time ----
-  const popMsgs = ['you have (1) new eh-oh', 'congratulations!! you are the 1,000,000th visitor', 'are you still there?', 'please rate this website 1 star'];
+  const popMsgs = ['sofi knocked something off the table', 'tova is staring at you', 'moffi + toffy are fighting again', 'the kids drew on this website', 'the dough is rising', 'someone ate the cherry pastry', 'ben: "is it done yet?"', 'you have (1) new eh-oh', 'congratulations!! you are the 1,000,000th visitor', 'are you still there?', 'please rate this website 1 star'];
   setInterval(() => {
     if (reduce || document.querySelectorAll('.popup').length >= 3 || document.hidden) return;
     const p = document.createElement('div');
@@ -364,7 +585,7 @@
     p.style.left = Math.random() * Math.max(10, innerWidth - 300) + 'px'; p.style.top = Math.random() * Math.max(10, innerHeight - 160) + 'px';
     p.style.zIndex = ++z;
     p.innerHTML = `<div class="tb"><span>⚠ alert</span><span><button aria-label="Minimize">_</button><button aria-label="Close">×</button></span></div>
-      <div class="wb"><img src="${photos[Math.floor(Math.random() * photos.length)]}" alt=""><span>${popMsgs[Math.floor(Math.random() * popMsgs.length)]}</span></div>`;
+      <div class="wb"><img src="${allPhotos[Math.floor(Math.random() * allPhotos.length)]}" alt=""><span>${popMsgs[Math.floor(Math.random() * popMsgs.length)]}</span></div>`;
     document.body.appendChild(p); makeWindow(p);
   }, 18000);
 </script>
