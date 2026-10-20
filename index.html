@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>bye-bye!!! (this is the start)</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🥴%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Rubik+Glitch&display=swap" rel="stylesheet">
+<style>
+  /* rule #1: there are no rules. rule #2: see rule #1 */
+  :root { --lime: #39FF14; --pink: #FF00E6; --blue: #0000FF; --yellow: #FFF200; --red: #FF0000; --gray: #C0C0C0; }
+  * { box-sizing: content-box; }
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; overflow-x: hidden; }
+  body {
+    font-family: 'Times New Roman', Times, serif; font-size: 17px; color: #000;
+    background: var(--lime) url(images/snacks.jpg) 0 0 / 90px 90px;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Ctext y='36' font-size='36'%3E📸%3C/text%3E%3C/svg%3E") 4 4, crosshair;
+  }
+  a, button, label, .tb { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Ctext y='36' font-size='36'%3E👉%3C/text%3E%3C/svg%3E") 4 4, pointer; }
+  ::selection { background: var(--pink); color: var(--lime); }
+  ::-webkit-scrollbar { width: 22px; background: var(--yellow); }
+  ::-webkit-scrollbar-thumb { background: repeating-linear-gradient(45deg, var(--red) 0 10px, var(--blue) 10px 20px); border: 3px solid #000; }
+  img { display: block; }
+  a { color: var(--blue); }
+  a:visited { color: purple; }
+  button { font: inherit; }
+  :focus-visible { outline: 6px dotted var(--red); outline-offset: 2px; }
+
+  /* ---------- the footer is the header ---------- */
+  .fakefooter { background: #000; color: var(--lime); font-family: 'Courier New', monospace; padding: 10px 14px 10px 90px; font-size: 13px; display: flex; flex-wrap: wrap; gap: 6px 24px; border-bottom: 8px double var(--pink); }
+  .fakefooter a { color: var(--yellow); }
+  .byebye { position: relative; padding: 30px 20px 10px 90px; }
+  .byebye h1 { margin: 0; font-family: 'Rubik Glitch', 'Anton', Impact, sans-serif; font-weight: 400; font-size: clamp(70px, 19vw, 300px); line-height: .8; color: var(--pink);
+    -webkit-text-stroke: 4px #000; letter-spacing: -.06em; transform: skewX(-12deg) scaleY(1.3); transform-origin: left top; mix-blend-mode: hard-light; }
+  .byebye p { font-family: 'Comic Sans MS', 'Comic Sans', 'Chalkboard SE', cursive; font-size: 22px; background: var(--yellow); display: inline-block; padding: 4px 10px; rotate: 2deg; margin: 70px 0 0 30vw; border: 3px dashed var(--blue); }
+  .byebye .bigphoto { position: absolute; right: 4vw; top: 10px; width: 220px; height: 400px; object-fit: fill; rotate: 11deg; border: 12px ridge var(--gray); z-index: -0; }
+
+  marquee { display: block; background: var(--blue); color: var(--yellow); font-family: 'Anton', Impact, sans-serif; font-size: 34px; padding: 4px 0; text-transform: uppercase; border-block: 5px solid var(--red); }
+  marquee.slow { background: var(--yellow); color: var(--red); font-family: 'Courier New', monospace; font-size: 16px; text-transform: none; }
+
+  /* ---------- nav: vertical, misspelled, one link has commitment issues ---------- */
+  .nav { position: fixed; left: 0; top: 0; bottom: 0; width: 70px; z-index: 60; background: var(--red); border-right: 6px solid #000; display: flex; flex-direction: column; justify-content: space-around; align-items: center; }
+  .nav a { writing-mode: vertical-rl; rotate: 180deg; font-family: 'Papyrus', 'Permanent Marker', fantasy; font-size: 19px; color: var(--yellow); text-decoration: underline wavy var(--lime); transition: transform .12s; }
+  .nav a:nth-child(odd) { rotate: 0deg; font-family: 'Comic Sans MS', cursive; color: #fff; }
+  .nav a:hover { transform: scale(1.6); color: var(--lime); }
+  .nav .counter { writing-mode: vertical-rl; font-family: 'Courier New', monospace; background: #000; color: var(--lime); font-size: 12px; padding: 6px 2px; }
+
+  /* ---------- desktop of windows ---------- */
+  .desktop { position: relative; min-height: 960px; margin-left: 70px; background: linear-gradient(135deg, #008080, #008080 60%, var(--pink)); border-block: 10px solid #000; overflow: hidden; }
+  .desktop-label { position: absolute; left: 18px; top: 14px; font-family: 'Anton', sans-serif; font-size: clamp(40px, 9vw, 120px); color: rgba(255,255,255,.18); line-height: .85; pointer-events: none; text-transform: uppercase; }
+  .win { position: absolute; width: 330px; background: var(--gray); border: 3px outset #fff; box-shadow: 8px 8px 0 #000; font-family: 'Courier New', monospace; font-size: 15px; }
+  .win.dragging { box-shadow: 18px 18px 0 var(--pink); }
+  .tb { display: flex; align-items: center; justify-content: space-between; gap: 8px; background: linear-gradient(90deg, #000080, #1084d0); color: #fff; font-family: Tahoma, Verdana, sans-serif; font-weight: bold; font-size: 13px; padding: 3px 4px 3px 8px; touch-action: none; user-select: none; }
+  .tb button { width: 22px; height: 20px; padding: 0; border: 2px outset #fff; background: var(--gray); color: #000; font-weight: bold; line-height: 1; }
+  .tb button:active { border-style: inset; }
+  .wb { padding: 12px; }
+  .wb img { width: 100%; height: 230px; object-fit: fill; border: 2px inset #fff; }
+  .wb h2 { margin: 6px 0; font-family: 'Permanent Marker', cursive; font-weight: 400; font-size: 30px; line-height: 1; color: var(--blue); }
+  .wb p { margin: 8px 0; }
+  .mirror { transform: scaleX(-1); display: inline-block; }
+  .upside { transform: rotate(180deg); display: inline-block; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { border: 3px outset var(--yellow); background: var(--yellow); padding: 4px 8px; font-family: 'Comic Sans MS', cursive; }
+  .chip:nth-child(2) { font-size: 26px; background: var(--lime); rotate: -6deg; }
+  .chip:nth-child(3) { font-size: 11px; background: var(--pink); color: #fff; }
+  .chip.on { filter: invert(1); }
+  .winbtn { border: 3px outset #fff; background: var(--gray); padding: 6px 14px; font-family: Tahoma, sans-serif; position: relative; transition: left .15s, top .15s; left: 0; top: 0; }
+  .winbtn:active { border-style: inset; }
+  .count { font-family: 'Anton', sans-serif; font-size: 60px; color: var(--red); line-height: 1; }
+
+  /* ---------- camera roll goes sideways ---------- */
+  .roll-wrap { margin-left: 70px; background: #000; padding: 30px 0 40px; border-bottom: 10px solid var(--yellow); }
+  .roll-wrap h2 { font-family: 'Anton', sans-serif; font-weight: 400; color: var(--lime); font-size: clamp(36px, 7vw, 90px); margin: 0 20px 18px; line-height: .9; text-transform: uppercase; }
+  .roll-wrap h2 span { color: var(--pink); font-family: 'Times New Roman', serif; font-style: italic; text-transform: lowercase; }
+  .roll { display: flex; align-items: flex-end; gap: 0; overflow-x: auto; padding: 0 20px 20px; scrollbar-color: var(--pink) var(--lime); }
+  .roll figure { margin: 0 -30px 0 0; flex: none; position: relative; transition: transform .3s; }
+  .roll figure:hover { z-index: 3; transform: scale(1.12) rotate(-4deg); }
+  .roll img { object-fit: fill; border: 6px solid #fff; }
+  .roll figure:nth-child(1) img { width: 420px; height: 220px; }
+  .roll figure:nth-child(2) img { width: 160px; height: 380px; filter: hue-rotate(180deg); }
+  .roll figure:nth-child(3) img { width: 300px; height: 300px; filter: grayscale(1) contrast(1.8); rotate: 6deg; }
+  .roll figure:nth-child(4) img { width: 500px; height: 160px; }
+  .roll figure:nth-child(5) img { width: 230px; height: 330px; filter: invert(1); }
+  .roll figure:nth-child(6) img { width: 380px; height: 260px; filter: saturate(4); rotate: -5deg; }
+  .roll figcaption { position: absolute; left: 10px; bottom: -14px; background: var(--yellow); font-family: 'Comic Sans MS', cursive; font-size: 14px; padding: 2px 6px; border: 2px solid #000; max-width: 90%; }
+  .roll figure.spin img { animation: spin 1s cubic-bezier(.5,-0.5,.5,1.5); }
+  @keyframes spin { to { rotate: 720deg; } }
+
+  /* ---------- contact: form is tilted and the labels are confused ---------- */
+  .contact { margin-left: 70px; padding: 60px 20px 90px; background: repeating-linear-gradient(90deg, var(--yellow) 0 40px, #fff 40px 80px); position: relative; }
+  .contact h2 { font-family: 'Papyrus', 'Permanent Marker', fantasy; font-size: clamp(40px, 8vw, 96px); margin: 0 0 20px; color: var(--red); text-shadow: 4px 4px 0 var(--blue), -4px -4px 0 var(--lime); }
+  .form { max-width: 520px; background: #fff; border: 8px groove var(--pink); padding: 18px 22px; rotate: -3deg; margin-left: 12vw; font-family: 'Courier New', monospace; }
+  .form label { display: block; font-size: 12px; text-align: right; margin: 4px 0 14px; }
+  .form input, .form textarea { width: calc(100% - 12px); border: 0; border-bottom: 4px solid #000; background: var(--lime); font-family: 'Comic Sans MS', cursive; font-size: 20px; padding: 6px; }
+  .form textarea { height: 80px; text-align: right; }
+  .form .send { font-size: 10px; padding: 2px 6px; border: 1px solid #000; background: #eee; margin-left: 85%; }
+  .rebuild { display: none; position: fixed; left: 50%; top: 50%; translate: -50% -50%; z-index: 999; font-family: 'Anton', sans-serif; font-size: 34px; padding: 18px 30px; background: var(--red); color: var(--yellow); border: 6px outset var(--yellow); text-transform: uppercase; }
+  body.fallen .rebuild { display: block; }
+  .faller { transition: transform 1.4s cubic-bezier(.6,0,.9,.4); }
+
+  /* ---------- the hero, at the bottom, where it belongs (it doesn't) ---------- */
+  .hero { margin-left: 70px; padding: 70px 20px 140px; background: #fff; position: relative; overflow: hidden; }
+  .hero small { font-family: 'Courier New', monospace; display: block; margin-bottom: 18px; }
+  .hero h2 { margin: 0; font-weight: 400; font-size: clamp(60px, 15vw, 220px); line-height: .82; }
+  .hero h2 span { display: inline-block; }
+  .hero h2 span:nth-child(5n+1) { font-family: 'Times New Roman', serif; font-style: italic; color: var(--blue); }
+  .hero h2 span:nth-child(5n+2) { font-family: 'Anton', sans-serif; color: var(--red); rotate: 8deg; }
+  .hero h2 span:nth-child(5n+3) { font-family: 'Comic Sans MS', cursive; color: var(--lime); -webkit-text-stroke: 2px #000; translate: 0 18px; }
+  .hero h2 span:nth-child(5n+4) { font-family: 'Permanent Marker', cursive; color: var(--pink); rotate: -12deg; font-size: .7em; }
+  .hero h2 span:nth-child(5n)   { font-family: 'Courier New', monospace; color: #000; background: var(--yellow); font-size: .5em; }
+  .hero p { font-family: Arial, sans-serif; font-size: 13px; max-width: 18ch; margin: 30px 0 0 auto; text-align: justify; }
+  .hero .face { position: absolute; left: 40%; bottom: -40px; width: 300px; height: 140px; object-fit: fill; rotate: -8deg; border: 10px solid var(--pink); }
+  .blink { animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { visibility: hidden; } }
+
+  /* things that appear */
+  .trail { position: fixed; width: 34px; height: 34px; object-fit: cover; pointer-events: none; z-index: 400; border: 2px solid #fff; animation: trail .9s ease-out forwards; }
+  @keyframes trail { to { transform: translateY(40px) rotate(90deg) scale(.2); opacity: 0; } }
+  .popup { position: fixed; z-index: 300; width: 270px; }
+  .popup .wb { display: flex; gap: 10px; align-items: center; }
+  .popup .wb img { width: 70px; height: 70px; flex: none; object-fit: cover; }
+
+  @media (max-width: 700px) {
+    .nav { width: 46px; }
+    .nav a { font-size: 14px; }
+    .nav .counter { display: none; }
+    .fakefooter, .byebye { padding-left: 58px; }
+    .desktop, .roll-wrap, .contact, .hero { margin-left: 46px; }
+    .desktop { min-height: 1700px; }
+    .win { width: min(300px, calc(100vw - 80px)); }
+    .byebye .bigphoto { width: 110px; height: 200px; top: 60px; }
+    .byebye p { margin-left: 0; }
+    .form { margin-left: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Menu (good luck)">
+  <a href="#abuot">abuot</a>
+  <a href="#lvoes">lvoes</a>
+  <a href="#galery" id="runaway">galery</a>
+  <a href="#fcats">fcats</a>
+  <a href="#contcat">contcat</a>
+  <a href="#start">START →</a>
+  <span class="counter">visitor #<span id="visits">000003</span></span>
+</nav>
+
+<div class="fakefooter faller">
+  <span>© 1999–<span id="year"></span> [YOUR NAME] ALL RIGHTS RESERVED (NONE)</span>
+  <a href="#start">back to top (it's at the bottom)</a>
+  <span>best viewed in Netscape Navigator 4.0 at 800×600</span>
+  <span>webmaster: [your@email]</span>
+</div>
+
+<header class="byebye faller">
+  <h1>BYE-BYE!</h1>
+  <img class="bigphoto" src="images/curb.jpg" alt="The gang eating pizza on the curb at 4am, stretched very tall">
+  <p>thank u 4 visiting. the start is at the bottom ↓↓↓</p>
+</header>
+
+<marquee scrollamount="12" class="faller">✦ eh-oh ✦ under construction since 2003 ✦ [your name] ✦ photos from the night ✦ no context will be provided ✦ again! again! ✦</marquee>
+<marquee scrollamount="3" direction="right" class="slow faller">this website is intentionally bad. if you think it's good, something went wrong. ⚠️ <span class="blink">NEW!!</span></marquee>
+
+<section class="desktop" aria-label="Desktop. Drag the windows around.">
+  <div class="desktop-label">My<br>Computer<br>(drag stuff)</div>
+
+  <div class="win faller" id="abuot" style="left: 4%; top: 120px; rotate: -2deg">
+    <div class="tb"><span>about_me.txt</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
+    <div class="wb">
+      <img src="images/bathroom.jpg" alt="Purple furry costume taking a flash mirror selfie in a graffiti bathroom">
+      <h2>hi i'm [Your Name]</h2>
+      <p>[age] years old. i live somewhere over the hills and far away.</p>
+      <p><span class="mirror">[a sentence about you, written backwards so you have to work for it]</span></p>
+    </div>
+  </div>
+
+  <div class="win faller" id="lvoes" style="left: 42%; top: 60px; width: 280px; rotate: 3deg">
+    <div class="tb"><span>THINGS_I_LOVE.exe</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
+    <div class="wb">
+      <img src="images/snacks.jpg" alt="Green furry costume holding an armful of snacks in a shop" style="height: 120px">
+      <p>click them. or don't. i'm a website not a cop.</p>
+      <div class="chips"><button class="chip">[Hobby 1]</button><button class="chip">[Hobby 2]</button><button class="chip">[Hobby 3]</button></div>
+    </div>
+  </div>
+
+  <div class="win faller" id="fcats" style="left: 20%; top: 560px; width: 360px; rotate: 1deg">
+    <div class="tb"><span>facts.zip (corrupted)</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
+    <div class="wb">
+      <img src="images/laundry.jpg" alt="Yellow furry costume asleep on a washing machine" style="height: 150px; object-fit: fill">
+      <p><b>FUN FACT:</b> <span id="fact">[Fun fact #1]</span></p>
+      <button class="winbtn" id="nextFact">Next fact</button>
+    </div>
+  </div>
+
+  <div class="win faller" style="left: 62%; top: 470px; width: 260px; rotate: -4deg">
+    <div class="tb"><span>hugs.bat</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
+    <div class="wb">
+      <img src="images/karaoke.jpg" alt="Red furry costume singing karaoke" style="height: 120px">
+      <p>hugs remaining:</p>
+      <div class="count" id="hugs" aria-live="polite">100</div>
+      <button class="winbtn" id="hug">Use a hug</button>
+    </div>
+  </div>
+</section>
+
+<section class="roll-wrap" id="galery">
+  <h2>camera roll <span>(scroll sideways, like a crab)</span> →→→</h2>
+  <div class="roll" id="roll"></div>
+</section>
+
+<section class="contact" id="contcat">
+  <h2>c o n t a c t</h2>
+  <form class="form faller" id="form">
+    <input id="f-name" required aria-label="Your name">
+    <label for="f-name">↑ ur name (this label is under the box, deal with it)</label>
+    <textarea id="f-msg" required aria-label="Your message"></textarea>
+    <label for="f-msg">↑ message (typed right-to-left vibes)</label>
+    <button class="send" type="submit">send</button>
+  </form>
+</section>
+
+<section class="hero" id="start">
+  <small>fig. 1 — the beginning. you made it. you scrolled the wrong way and it worked.</small>
+  <h2 id="title" aria-label="Eh-oh! I'm [Your Name]"></h2>
+  <p>Welcome to my website. This paragraph is very narrow and justified on purpose so the gaps between the words get really big and uncomfortable to read. Design master's degree, baby.</p>
+  <img class="face" src="images/party.jpg" alt="Me in a yellow costume at a party, squashed flat">
+</section>
+
+<button class="rebuild" id="rebuild">↺ rebuild website</button>
+
+<script>
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = s => document.querySelector(s);
+  const photos = ['party', 'bathroom', 'snacks', 'laundry', 'karaoke', 'curb'].map(p => `images/${p}.jpg`);
+  $('#year').textContent = new Date().getFullYear();
+
+  // visitor counter that only ever shows tiny numbers
+  try { const v = (+localStorage.getItem('v') || 2) + 1; localStorage.setItem('v', v); $('#visits').textContent = String(v).padStart(6, '0'); } catch {}
+
+  // ---- the title: every letter gets its own font via CSS nth-child ----
+  const title = $('#title');
+  [..."Eh-oh! I'm [Your Name]"].forEach(ch => {
+    const s = document.createElement('span');
+    s.textContent = ch === ' ' ? ' ' : ch;
+    s.setAttribute('aria-hidden', 'true');
+    title.appendChild(s);
+  });
+
+  // ---- draggable windows ----
+  let z = 10;
+  function makeWindow(win) {
+    const bar = win.querySelector('.tb');
+    win.addEventListener('pointerdown', () => win.style.zIndex = ++z);
+    bar.addEventListener('pointerdown', e => {
+      if (e.target.closest('button')) return;
+      const box = win.offsetParent.getBoundingClientRect(), r = win.getBoundingClientRect();
+      const dx = e.clientX - r.left, dy = e.clientY - r.top;
+      bar.setPointerCapture(e.pointerId); win.classList.add('dragging');
+      const move = ev => { win.style.left = ev.clientX - box.left - dx + 'px'; win.style.top = ev.clientY - box.top - dy + 'px'; };
+      bar.addEventListener('pointermove', move);
+      bar.addEventListener('pointerup', () => { bar.removeEventListener('pointermove', move); win.classList.remove('dragging'); }, { once: true });
+    });
+    // minimize hides the content, close spawns two more windows (hydra)
+    const [min, x] = win.querySelectorAll('.tb button');
+    min.addEventListener('click', () => { const b = win.querySelector('.wb'); b.hidden = !b.hidden; });
+    x?.addEventListener('click', () => {
+      const parent = win.parentElement;
+      if (!parent.classList.contains('desktop')) { win.remove(); return; }
+      for (let i = 0; i < 2; i++) spawn(parent, parseFloat(win.style.left) || 40, parseFloat(win.style.top) || 200, i);
+      win.remove();
+    });
+  }
+  const errors = ['Error 404: vibes not found', 'Are you sure? (no)', 'Task failed successfully', 'eh-oh.exe has stopped eh-oh-ing', 'This window cannot be closed. Two more have been opened.'];
+  let spawned = 0;
+  function spawn(parent, x, y, i) {
+    if (spawned++ > 24) return;   // the hydra gets tired eventually
+    const w = document.createElement('div');
+    w.className = 'win';
+    w.style.cssText = `left:${x + (i ? 60 : -30)}px; top:${y + 40 + i * 50}px; width:250px; rotate:${(Math.random() * 10 - 5).toFixed(1)}deg; z-index:${++z}`;
+    w.innerHTML = `<div class="tb"><span>⚠ error</span><span><button aria-label="Minimize">_</button><button aria-label="Close">×</button></span></div>
+      <div class="wb"><p>${errors[Math.floor(Math.random() * errors.length)]}</p><img src="${photos[Math.floor(Math.random() * photos.length)]}" alt="" style="height:90px"></div>`;
+    parent.appendChild(w); makeWindow(w);
+  }
+  document.querySelectorAll('.win').forEach(makeWindow);
+
+  // ---- loves ----
+  document.querySelectorAll('.chip').forEach(b => b.addEventListener('click', () => b.classList.toggle('on')));
+
+  // ---- facts: the button runs away 3 times, then gives up ----
+  const facts = ['[Fun fact #1]', '[Fun fact #2]', '[Fun fact #3]'];
+  let f = 0, dodges = 0;
+  const nf = $('#nextFact');
+  nf.addEventListener('pointerenter', e => {
+    if (e.pointerType !== 'mouse' || dodges >= 3) return;
+    dodges++;
+    nf.style.left = (Math.random() * 180 - 40) + 'px'; nf.style.top = (Math.random() * 60 - 30) + 'px';
+    nf.textContent = ['nope', 'too slow', 'ok fine, one more try'][dodges - 1];
+  });
+  nf.addEventListener('click', () => { f = (f + 1) % facts.length; $('#fact').textContent = facts[f]; nf.textContent = 'Next fact'; dodges = 0; nf.style.left = nf.style.top = '0'; });
+
+  // ---- hugs count down ----
+  let hugs = 100;
+  $('#hug').addEventListener('click', () => { hugs = Math.max(0, hugs - 1); $('#hugs').textContent = hugs; if (!hugs) $('#hug').textContent = 'out of hugs :('; });
+
+  // ---- the "galery" nav link doesn't want to be clicked ----
+  const run = $('#runaway');
+  let runs = 0;
+  run.addEventListener('pointerenter', e => {
+    if (e.pointerType !== 'mouse' || runs >= 4) return;
+    runs++;
+    run.style.transform = `translate(${Math.random() * 40 - 20}px, ${Math.random() * 200 - 100}px) rotate(${Math.random() * 90}deg)`;
+  });
+
+  // ---- camera roll ----
+  const caps = ['halloween 03', 'nye bathroom', '"just one thing"', 'slept here', 'TEQUILA!', '4:03am'];
+  const roll = $('#roll');
+  photos.forEach((src, i) => {
+    const fig = document.createElement('figure');
+    fig.innerHTML = `<img src="${src}" alt="${caps[i]}" loading="lazy"><figcaption>${i % 2 ? `<span class="upside">${caps[i]}</span>` : caps[i]}</figcaption>`;
+    fig.addEventListener('click', () => { fig.classList.remove('spin'); void fig.offsetWidth; fig.classList.add('spin'); });
+    roll.appendChild(fig);
+  });
+
+  // ---- contact: sending makes the website fall over ----
+  $('#form').addEventListener('submit', e => {
+    e.preventDefault();
+    const name = $('#f-name').value, msg = $('#f-msg').value;
+    document.querySelectorAll('.faller, .win, .roll figure, .hero h2 span').forEach(el => {
+      el.classList.add('faller');
+      el.style.transform = `translateY(${innerHeight + 400}px) rotate(${Math.random() * 160 - 80}deg)`;
+    });
+    document.body.classList.add('fallen');
+    setTimeout(() => { location.href = `mailto:[your@email]?subject=${encodeURIComponent('eh-oh from ' + name)}&body=${encodeURIComponent(msg)}`; }, 1500);
+  });
+  $('#rebuild').addEventListener('click', () => {
+    document.querySelectorAll('.faller').forEach(el => el.style.transform = '');
+    document.body.classList.remove('fallen');
+  });
+
+  // ---- cursor leaves a trail of tiny photos ----
+  let last = 0;
+  if (!reduce) addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse' || e.timeStamp - last < 70) return;
+    last = e.timeStamp;
+    const t = document.createElement('img');
+    t.className = 'trail'; t.src = photos[Math.floor(Math.random() * photos.length)]; t.alt = '';
+    t.style.left = e.clientX + 8 + 'px'; t.style.top = e.clientY + 8 + 'px';
+    document.body.appendChild(t); setTimeout(() => t.remove(), 900);
+  });
+
+  // ---- surprise pop-ups, max 3 at a time ----
+  const popMsgs = ['you have (1) new eh-oh', 'congratulations!! you are the 1,000,000th visitor', 'are you still there?', 'please rate this website 1 star'];
+  setInterval(() => {
+    if (reduce || document.querySelectorAll('.popup').length >= 3 || document.hidden) return;
+    const p = document.createElement('div');
+    p.className = 'win popup';
+    p.style.left = Math.random() * Math.max(10, innerWidth - 300) + 'px'; p.style.top = Math.random() * Math.max(10, innerHeight - 160) + 'px';
+    p.style.zIndex = ++z;
+    p.innerHTML = `<div class="tb"><span>⚠ alert</span><span><button aria-label="Minimize">_</button><button aria-label="Close">×</button></span></div>
+      <div class="wb"><img src="${photos[Math.floor(Math.random() * photos.length)]}" alt=""><span>${popMsgs[Math.floor(Math.random() * popMsgs.length)]}</span></div>`;
+    document.body.appendChild(p); makeWindow(p);
+  }, 18000);
+</script>
+</body>
+</html>
