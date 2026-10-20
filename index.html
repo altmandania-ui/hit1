@@ -17,9 +17,9 @@
   body {
     font-family: 'Times New Roman', Times, serif; font-size: 17px; color: #000;
     background: var(--lime) url(images/me-deadpan.jpg) 0 0 / 76px 76px;
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Ctext y='36' font-size='36'%3E📸%3C/text%3E%3C/svg%3E") 4 4, crosshair;
   }
-  a, button, label, .tb { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Ctext y='36' font-size='36'%3E👉%3C/text%3E%3C/svg%3E") 4 4, pointer; }
+  a, button, label { cursor: pointer; }
+  .tb { cursor: move; }
   ::selection { background: var(--pink); color: var(--lime); }
   ::-webkit-scrollbar { width: 22px; background: var(--yellow); }
   ::-webkit-scrollbar-thumb { background: repeating-linear-gradient(45deg, var(--red) 0 10px, var(--blue) 10px 20px); border: 3px solid #000; }
@@ -49,7 +49,7 @@
   .nav .counter { writing-mode: vertical-rl; font-family: 'Courier New', monospace; background: #000; color: var(--lime); font-size: 12px; padding: 6px 2px; }
 
   /* ---------- desktop of windows ---------- */
-  .desktop { position: relative; min-height: 1720px; margin-left: 70px; background: linear-gradient(135deg, #008080, #008080 60%, var(--pink)); border-block: 10px solid #000; overflow: hidden; }
+  .desktop { position: relative; min-height: 1900px; margin-left: 70px; background: linear-gradient(135deg, #008080, #008080 60%, var(--pink)); border-block: 10px solid #000; overflow: hidden; }
   .desktop-label { position: absolute; left: 18px; top: 14px; font-family: 'Anton', sans-serif; font-size: clamp(40px, 9vw, 120px); color: rgba(255,255,255,.18); line-height: .85; pointer-events: none; text-transform: uppercase; }
   .win { position: absolute; width: 330px; background: var(--gray); border: 3px outset #fff; box-shadow: 8px 8px 0 #000; font-family: 'Courier New', monospace; font-size: 15px; }
   .win.dragging { box-shadow: 18px 18px 0 var(--pink); }
@@ -121,8 +121,6 @@
   @keyframes blink { 50% { visibility: hidden; } }
 
   /* things that appear */
-  .trail { position: fixed; width: 34px; height: 34px; object-fit: cover; pointer-events: none; z-index: 400; border: 2px solid #fff; animation: trail .9s ease-out forwards; }
-  @keyframes trail { to { transform: translateY(40px) rotate(90deg) scale(.2); opacity: 0; } }
   .popup { position: fixed; z-index: 300; width: 270px; }
   .popup .wb { display: flex; gap: 10px; align-items: center; }
   .popup .wb img { width: 70px; height: 70px; flex: none; object-fit: cover; }
@@ -184,7 +182,7 @@
 <nav class="nav" aria-label="Menu (good luck)">
   <a href="#abuot">abuot</a>
   <a href="#lvoes">lvoes</a>
-  <a href="#galery" id="runaway">galery</a>
+  <a href="#galery">galery</a>
   <a href="#fcats">fcats</a>
   <a href="#contcat">contcat</a>
   <a href="#start">START →</a>
@@ -284,7 +282,7 @@
     </div>
   </div>
 
-  <div class="win faller" style="left: 30%; top: 1210px; width: 380px; rotate: -2deg">
+  <div class="win faller" style="left: 34%; top: 1360px; width: 380px; rotate: -2deg">
     <div class="tb"><span>i_bake_things.jpg</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
       <div style="display:grid; grid-template-columns: 1.2fr 1fr; gap:6px">
@@ -296,7 +294,7 @@
     </div>
   </div>
 
-  <div class="win faller" style="left: 64%; top: 1290px; width: 300px; rotate: 5deg">
+  <div class="win faller" style="left: 66%; top: 1420px; width: 300px; rotate: 5deg">
     <div class="tb"><span>my_art.ai (cats in suits)</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
       <div style="display:flex; gap:6px"><img src="images/cat-suit.jpg" alt="My AI art: a cat in a suit and tie on an armchair by a fireplace" style="height:140px; object-fit:cover"><img src="images/cat-glass.jpg" alt="My AI art: a cat in sunglasses drinking from a glass with a purple straw" style="height:140px; object-fit:cover"></div>
@@ -304,7 +302,7 @@
     </div>
   </div>
 
-  <div class="win faller" style="left: 8%; top: 790px; width: 420px; rotate: 2deg">
+  <div class="win faller" style="left: 4%; top: 960px; width: 420px; rotate: 2deg">
     <div class="tb"><span>LinkedIn — my 9 to 5.pdf</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
       <img src="images/meeting.jpg" alt="The four costumed friends in ties at a serious boardroom meeting with a pie chart" style="height: 200px">
@@ -420,7 +418,7 @@
   // ---- loves ----
   document.querySelectorAll('.chip').forEach(b => b.addEventListener('click', () => b.classList.toggle('on')));
 
-  // ---- facts: the button runs away 3 times, then gives up ----
+  // ---- facts: the button dodges once, then gives up ----
   const facts = [
     'i have 4 cats and their names rhyme. mostly.',
     'sofi, moffi, toffy… and tova, who refused to rhyme.',
@@ -441,25 +439,16 @@
   let f = 0, dodges = 0;
   const nf = $('#nextFact');
   nf.addEventListener('pointerenter', e => {
-    if (e.pointerType !== 'mouse' || dodges >= 3) return;
+    if (e.pointerType !== 'mouse' || dodges >= 1) return;
     dodges++;
-    nf.style.left = (Math.random() * 180 - 40) + 'px'; nf.style.top = (Math.random() * 60 - 30) + 'px';
-    nf.textContent = ['nope', 'too slow', 'ok fine, one more try'][dodges - 1];
+    nf.style.left = '90px';
+    nf.textContent = 'nope. ok fine, click me';
   });
-  nf.addEventListener('click', () => { f = (f + 1) % facts.length; $('#fact').textContent = facts[f]; nf.textContent = 'Next fact'; dodges = 0; nf.style.left = nf.style.top = '0'; });
+  nf.addEventListener('click', () => { f = (f + 1) % facts.length; $('#fact').textContent = facts[f]; nf.textContent = 'Next fact'; nf.style.left = nf.style.top = '0'; });
 
   // ---- hugs count down ----
   let hugs = 100;
   $('#hug').addEventListener('click', () => { hugs = Math.max(0, hugs - 1); $('#hugs').textContent = hugs; if (!hugs) $('#hug').textContent = 'out of hugs :('; });
-
-  // ---- the "galery" nav link doesn't want to be clicked ----
-  const run = $('#runaway');
-  let runs = 0;
-  run.addEventListener('pointerenter', e => {
-    if (e.pointerType !== 'mouse' || runs >= 4) return;
-    runs++;
-    run.style.transform = `translate(${Math.random() * 40 - 20}px, ${Math.random() * 200 - 100}px) rotate(${Math.random() * 90}deg)`;
-  });
 
   // ---- camera roll ----
   const caps = ['the egg was for the kids (it was not)', 'germany. mayo on chin. no regrets', 'tova, belly up, unbothered', 'resting my eyes', 'the face when the code works', 'sofi on the good blanket'];
@@ -485,17 +474,6 @@
   $('#rebuild').addEventListener('click', () => {
     document.querySelectorAll('.faller').forEach(el => el.style.transform = '');
     document.body.classList.remove('fallen');
-  });
-
-  // ---- cursor leaves a trail of tiny photos ----
-  let last = 0;
-  if (!reduce) addEventListener('pointermove', e => {
-    if (e.pointerType !== 'mouse' || e.timeStamp - last < 70) return;
-    last = e.timeStamp;
-    const t = document.createElement('img');
-    t.className = 'trail'; t.src = allPhotos[Math.floor(Math.random() * allPhotos.length)]; t.alt = '';
-    t.style.left = e.clientX + 8 + 'px'; t.style.top = e.clientY + 8 + 'px';
-    document.body.appendChild(t); setTimeout(() => t.remove(), 900);
   });
 
   // ================= EVEN WEIRDER =================
@@ -530,7 +508,7 @@
   const wake = () => { idle = 0; if (melt) { melt = 0; meltMap.setAttribute('scale', 0); world.classList.remove('melting'); } };
   ['pointermove', 'keydown', 'scroll', 'touchstart'].forEach(ev => addEventListener(ev, wake, { passive: true }));
   if (!reduce) setInterval(() => {
-    if (++idle < 14 || document.hidden) return;        // ~7s of stillness
+    if (++idle < 30 || document.hidden) return;        // ~15s of stillness
     world.classList.add('melting');
     melt = Math.min(90, melt + 3);
     meltMap.setAttribute('scale', melt);
@@ -568,7 +546,7 @@
     for (const s of letters) {
       const r = s.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
       const dx = cx - e.clientX, dy = cy - e.clientY, d = Math.hypot(dx, dy);
-      s.style.transform = d < 140 ? `translate(${dx / d * (140 - d) * .6}px, ${dy / d * (140 - d) * .6}px)` : '';
+      s.style.transform = d < 90 ? `translate(${dx / d * (90 - d) * .3}px, ${dy / d * (90 - d) * .3}px)` : '';
     }
   });
   letters.forEach(s => s.addEventListener('click', () => say(s.textContent.trim() || 'space', .2 + Math.random() * 1.8)));
