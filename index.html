@@ -32,11 +32,11 @@
   /* ---------- the footer is the header ---------- */
   .fakefooter { background: #000; color: var(--lime); font-family: 'Courier New', monospace; padding: 10px 14px 10px 90px; font-size: 13px; display: flex; flex-wrap: wrap; gap: 6px 24px; border-bottom: 8px double var(--pink); }
   .fakefooter a { color: var(--yellow); }
-  .byebye { position: relative; padding: 30px 20px 10px 90px; }
-  .byebye h1 { margin: 0; font-family: 'Rubik Glitch', 'Anton', Impact, sans-serif; font-weight: 400; font-size: clamp(70px, 19vw, 300px); line-height: .8; color: var(--pink);
+  .byebye { position: relative; padding: 30px 20px 10px 110px; }
+  .byebye h1 { margin: 0; font-family: 'Rubik Glitch', 'Anton', Impact, sans-serif; font-weight: 400; font-size: clamp(56px, 13vw, 210px); line-height: .8; color: var(--pink); white-space: nowrap;
     -webkit-text-stroke: 4px #000; letter-spacing: -.06em; transform: skewX(-12deg) scaleY(1.3); transform-origin: left top; mix-blend-mode: hard-light; }
   .byebye p { font-family: 'Comic Sans MS', 'Comic Sans', 'Chalkboard SE', cursive; font-size: 22px; background: var(--yellow); display: inline-block; padding: 4px 10px; rotate: 2deg; margin: 70px 0 0 30vw; border: 3px dashed var(--blue); }
-  .byebye .bigphoto { position: absolute; right: 4vw; top: 10px; width: 220px; height: 400px; object-fit: fill; rotate: 11deg; border: 12px ridge var(--gray); z-index: -0; }
+  .byebye .bigphoto { position: absolute; right: 2vw; top: 14px; width: 190px; height: 340px; object-fit: fill; rotate: 11deg; border: 12px ridge var(--gray); z-index: -0; }
 
   marquee { display: block; background: var(--blue); color: var(--yellow); font-family: 'Anton', Impact, sans-serif; font-size: 34px; padding: 4px 0; text-transform: uppercase; border-block: 5px solid var(--red); }
   marquee.slow { background: var(--yellow); color: var(--red); font-family: 'Courier New', monospace; font-size: 16px; text-transform: none; }
@@ -49,7 +49,7 @@
   .nav .counter { writing-mode: vertical-rl; font-family: 'Courier New', monospace; background: #000; color: var(--lime); font-size: 12px; padding: 6px 2px; }
 
   /* ---------- desktop of windows ---------- */
-  .desktop { position: relative; min-height: 1900px; margin-left: 70px; background: linear-gradient(135deg, #008080, #008080 60%, var(--pink)); border-block: 10px solid #000; overflow: hidden; }
+  .desktop { position: relative; min-height: 1860px; margin-left: 70px; background: linear-gradient(135deg, #008080, #008080 60%, var(--pink)); border-block: 10px solid #000; overflow: hidden; }
   .desktop-label { position: absolute; left: 18px; top: 14px; font-family: 'Anton', sans-serif; font-size: clamp(40px, 9vw, 120px); color: rgba(255,255,255,.18); line-height: .85; pointer-events: none; text-transform: uppercase; }
   .win { position: absolute; width: 330px; background: var(--gray); border: 3px outset #fff; box-shadow: 8px 8px 0 #000; font-family: 'Courier New', monospace; font-size: 15px; }
   .win.dragging { box-shadow: 18px 18px 0 var(--pink); }
@@ -57,7 +57,7 @@
   .tb button { width: 22px; height: 20px; padding: 0; border: 2px outset #fff; background: var(--gray); color: #000; font-weight: bold; line-height: 1; }
   .tb button:active { border-style: inset; }
   .wb { padding: 12px; }
-  .wb img { width: 100%; height: 230px; object-fit: cover; object-position: 50% 25%; border: 2px inset #fff; }
+  .wb img { display: block; width: auto; height: auto; max-width: 100%; max-height: 300px; margin: 0 auto; border: 2px inset #fff; }
   .wb h2 { margin: 6px 0; font-family: 'Permanent Marker', cursive; font-weight: 400; font-size: 30px; line-height: 1; color: var(--blue); }
   .wb p { margin: 8px 0; }
   .mirror { transform: scaleX(-1); display: inline-block; }
@@ -68,7 +68,8 @@
   .chip:nth-child(3) { font-size: 11px; background: var(--pink); color: #fff; }
   .chip.on { filter: invert(1); }
   .catgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
-  .catgrid img { width: 100%; height: 120px; object-fit: cover; border: 2px inset #fff; }
+  .catgrid { align-items: center; justify-items: center; }
+  .catgrid img { width: auto; height: auto; max-width: 100%; max-height: 160px; border: 2px inset #fff; }
   .catgrid img.shake { animation: catshake .5s; }
   @keyframes catshake { 20%, 60% { transform: rotate(-12deg) scale(1.15); } 40%, 80% { transform: rotate(12deg) scale(1.15); } }
   .winbtn { border: 3px outset #fff; background: var(--gray); padding: 6px 14px; font-family: Tahoma, sans-serif; position: relative; transition: left .15s, top .15s; left: 0; top: 0; }
@@ -82,13 +83,13 @@
   .roll { display: flex; align-items: flex-end; gap: 0; overflow-x: auto; padding: 0 20px 20px; scrollbar-color: var(--pink) var(--lime); }
   .roll figure { margin: 0 -30px 0 0; flex: none; position: relative; transition: transform .3s; }
   .roll figure:hover { z-index: 3; transform: scale(1.12) rotate(-4deg); }
-  .roll img { object-fit: cover; object-position: 50% 25%; border: 6px solid #fff; }
-  .roll figure:nth-child(1) img { width: 300px; height: 400px; rotate: -3deg; }
-  .roll figure:nth-child(2) img { width: 230px; height: 380px; }
-  .roll figure:nth-child(3) img { width: 300px; height: 230px; filter: grayscale(1); rotate: 6deg; }
-  .roll figure:nth-child(4) img { width: 380px; height: 290px; }
-  .roll figure:nth-child(5) img { width: 270px; height: 340px; rotate: 4deg; }
-  .roll figure:nth-child(6) img { width: 300px; height: 380px; rotate: -5deg; }
+  .roll img { width: auto; border: 6px solid #fff; }
+  .roll figure:nth-child(1) img { height: 400px; rotate: -3deg; }
+  .roll figure:nth-child(2) img { height: 380px; }
+  .roll figure:nth-child(3) img { height: 240px; filter: grayscale(1); rotate: 6deg; }
+  .roll figure:nth-child(4) img { height: 320px; }
+  .roll figure:nth-child(5) img { height: 340px; rotate: 4deg; }
+  .roll figure:nth-child(6) img { height: 380px; rotate: -5deg; }
   .roll figcaption { position: absolute; left: 10px; bottom: -14px; background: var(--yellow); font-family: 'Comic Sans MS', cursive; font-size: 14px; padding: 2px 6px; border: 2px solid #000; max-width: 90%; }
   .roll figure.spin img { animation: spin 1s cubic-bezier(.5,-0.5,.5,1.5); }
   @keyframes spin { to { rotate: 720deg; } }
@@ -106,17 +107,18 @@
   .faller { transition: transform 1.4s cubic-bezier(.6,0,.9,.4); }
 
   /* ---------- the hero, at the bottom, where it belongs (it doesn't) ---------- */
-  .hero { margin-left: 70px; padding: 70px 20px 140px; background: #fff; position: relative; overflow: hidden; }
+  .hero { margin-left: 70px; padding: 70px 170px 330px 20px; background: #fff; position: relative; overflow: hidden; }
   .hero small { font-family: 'Courier New', monospace; display: block; margin-bottom: 18px; }
-  .hero h2 { margin: 0; font-weight: 400; font-size: clamp(60px, 15vw, 220px); line-height: .82; }
+  .hero h2 { margin: 0; font-weight: 400; font-size: clamp(54px, 11vw, 170px); line-height: .9; }
   .hero h2 span { display: inline-block; }
-  .hero h2 span:nth-child(5n+1) { font-family: 'Times New Roman', serif; font-style: italic; color: var(--blue); }
-  .hero h2 span:nth-child(5n+2) { font-family: 'Anton', sans-serif; color: var(--red); rotate: 8deg; }
-  .hero h2 span:nth-child(5n+3) { font-family: 'Comic Sans MS', cursive; color: var(--lime); -webkit-text-stroke: 2px #000; translate: 0 18px; }
-  .hero h2 span:nth-child(5n+4) { font-family: 'Permanent Marker', cursive; color: var(--pink); rotate: -12deg; font-size: .7em; }
-  .hero h2 span:nth-child(5n)   { font-family: 'Courier New', monospace; color: #000; background: var(--yellow); font-size: .5em; }
-  .hero p { font-family: Arial, sans-serif; font-size: 13px; max-width: 18ch; margin: 30px 0 0 auto; text-align: justify; }
-  .hero .face { position: absolute; left: 40%; bottom: -40px; width: 330px; height: 220px; object-fit: cover; rotate: -8deg; border: 10px solid var(--pink); }
+  .hero h2 .w { white-space: nowrap; margin-right: .25em; }
+  .hero h2 .f1 { font-family: 'Times New Roman', serif; font-style: italic; color: var(--blue); }
+  .hero h2 .f2 { font-family: 'Anton', sans-serif; color: var(--red); rotate: 8deg; }
+  .hero h2 .f3 { font-family: 'Comic Sans MS', cursive; color: var(--lime); -webkit-text-stroke: 2px #000; translate: 0 18px; }
+  .hero h2 .f4 { font-family: 'Permanent Marker', cursive; color: var(--pink); rotate: -12deg; font-size: .7em; }
+  .hero h2 .f0 { font-family: 'Courier New', monospace; color: #000; background: var(--yellow); font-size: .5em; }
+  .hero p { font-family: Arial, sans-serif; font-size: 13px; max-width: 18ch; margin: 30px 0 0 auto; text-align: justify; position: relative; z-index: 1; }
+  .hero .face { position: absolute; left: 30%; bottom: 60px; width: 330px; height: 220px; object-fit: cover; rotate: -8deg; border: 10px solid var(--pink); }
   .blink { animation: blink 1s steps(1) infinite; }
   @keyframes blink { 50% { visibility: hidden; } }
 
@@ -167,6 +169,8 @@
     .win { width: min(300px, calc(100vw - 80px)); }
     .byebye .bigphoto { width: 110px; height: 200px; top: 60px; }
     .byebye p { margin-left: 0; }
+    .hero { padding-right: 20px; padding-bottom: 280px; }
+    .hero .face { left: 10%; width: 240px; height: 160px; }
     .form { margin-left: 0; }
     .yearbook { margin-left: 46px; }
     .goldframe img { width: 200px; height: 250px; }
@@ -220,92 +224,92 @@
 <section class="desktop" aria-label="Desktop. Drag the windows around.">
   <div class="desktop-label">My<br>Computer<br>(drag stuff)</div>
 
-  <div class="win faller" id="abuot" style="left: 4%; top: 120px; rotate: -2deg">
+  <div class="win faller" id="abuot" style="left: 3%; top: 110px; rotate: -2deg">
     <div class="tb"><span>about_me.txt</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
-      <img src="images/me-side.jpg" alt="Me looking to the side, stretched a little wider than reality">
+      <img src="images/me-side.jpg" alt="Me looking to the side">
       <h2>hi i'm Dania</h2>
       <p>29 years old. i live with my husband ben, our two kids, and four cats who are in charge. i bake, i make cats wear suits (digitally), and i like weird things.</p>
       <p><span class="mirror">i'm doing a design master's and they told me to make it weird. so i did. you're welcome.</span></p>
     </div>
   </div>
 
-  <div class="win faller" id="lvoes" style="left: 42%; top: 60px; width: 280px; rotate: 3deg">
+  <div class="win faller" id="lvoes" style="left: 35%; top: 60px; width: 280px; rotate: 3deg">
     <div class="tb"><span>THINGS_I_LOVE.exe</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
-      <img src="images/me-kinder.jpg" alt="Me holding up a giant Kinder Surprise egg and grinning" style="height: 200px; object-fit: cover; object-position: 50% 15%">
+      <img src="images/me-kinder.jpg" alt="Me holding up a giant Kinder Surprise egg and grinning">
       <p>click them. or don't. i'm a website not a cop.</p>
       <div class="chips"><button class="chip">weird things</button><button class="chip">my 4 cats</button><button class="chip">my two kids</button><button class="chip">ben (most days)</button><button class="chip">poppy seeds</button><button class="chip">cats in suits</button></div>
     </div>
   </div>
 
-  <div class="win faller" id="fcats" style="left: 20%; top: 560px; width: 360px; rotate: 1deg">
+  <div class="win faller" id="fcats" style="left: 4%; top: 1160px; width: 340px; rotate: 1deg">
     <div class="tb"><span>facts.zip (corrupted)</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
-      <img src="images/me-sleep.jpg" alt="Me fast asleep, face squished into my hands" style="height: 180px">
+      <img src="images/me-sleep.jpg" alt="Me fast asleep, face squished into my hands">
       <p><b>FUN FACT:</b> <span id="fact">i have 4 cats and their names rhyme. mostly.</span></p>
       <button class="winbtn" id="nextFact">Next fact</button>
     </div>
   </div>
 
-  <div class="win faller" style="left: 62%; top: 470px; width: 260px; rotate: -4deg">
+  <div class="win faller" style="left: 36%; top: 670px; width: 260px; rotate: -4deg">
     <div class="tb"><span>hugs.bat</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
-      <img src="images/me-laugh.jpg" alt="Me laughing with my eyes squeezed shut" style="height: 150px; object-fit: cover">
+      <img src="images/me-laugh.jpg" alt="Me laughing with my eyes squeezed shut">
       <p>hugs remaining:</p>
       <div class="count" id="hugs" aria-live="polite">100</div>
       <button class="winbtn" id="hug">Use a hug</button>
     </div>
   </div>
 
-  <div class="win faller" id="cats" style="left: 55%; top: 860px; width: 340px; rotate: -3deg">
+  <div class="win faller" id="cats" style="left: 65%; top: 480px; width: 340px; rotate: -3deg">
     <div class="tb"><span>the_management.jpg</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
       <div class="catgrid">
         <img src="images/cat-sofi.jpg" data-cat="sofi" alt="Sofi, a black cat, lounging on a butterfly blanket">
         <img src="images/cat-moffi.jpg" data-cat="moffi" alt="Moffi, a fluffy black cat, hiding in the TV stand">
         <img src="images/cat-toffy.jpg" data-cat="toffy" alt="Toffy, a black and white cat, cuddled up to my face (very low resolution)" style="image-rendering: pixelated">
-        <img src="images/cat-tova.jpg" data-cat="tova" alt="Tova, a tabby and white cat, staring into my soul">
+        <img src="images/cat-tova-face.jpg" data-cat="tova" alt="Tova, a tabby and white cat, staring into my soul">
       </div>
       <p>the real bosses of the house. click a name and they'll introduce themselves:</p>
       <div class="chips cats"><button class="chip">sofi</button><button class="chip">moffi</button><button class="chip">toffy</button><button class="chip">tova</button></div>
     </div>
   </div>
 
-  <div class="win faller" style="left: 70%; top: 110px; width: 330px; rotate: 4deg">
+  <div class="win faller" style="left: 66%; top: 100px; width: 330px; rotate: 4deg">
     <div class="tb"><span>AI_vs_reality.exe</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
       <div style="display:flex; gap:8px">
-        <figure style="margin:0; flex:1"><img src="images/me-ai.jpg" alt="An AI-generated dreamy portrait of me in a field at sunset" style="height:200px; object-fit:cover"><figcaption>how the AI sees me</figcaption></figure>
-        <figure style="margin:0; flex:1"><img src="images/me-selfie.jpg" alt="A blurry low-res selfie of me looking half awake" style="height:200px; object-fit:cover; image-rendering: pixelated"><figcaption>me at 7am</figcaption></figure>
+        <figure style="margin:0; flex:1"><img src="images/me-ai.jpg" alt="An AI-generated dreamy portrait of me in a field at sunset" style="max-height:220px"><figcaption>how the AI sees me</figcaption></figure>
+        <figure style="margin:0; flex:1"><img src="images/me-selfie.jpg" alt="A blurry low-res selfie of me looking half awake" style="max-height:220px; image-rendering: pixelated"><figcaption>me at 7am</figcaption></figure>
       </div>
     </div>
   </div>
 
-  <div class="win faller" style="left: 34%; top: 1360px; width: 380px; rotate: -2deg">
+  <div class="win faller" style="left: 33%; top: 1230px; width: 360px; rotate: -2deg">
     <div class="tb"><span>i_bake_things.jpg</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
-      <div style="display:grid; grid-template-columns: 1.2fr 1fr; gap:6px">
-        <img src="images/bake-cake.jpg" alt="A homemade Saint-Honoré cake with cream and choux puffs" style="height:260px; object-fit:cover; grid-row: span 2">
-        <img src="images/bake-dough.jpg" alt="Dough with poppy seeds and cubes of butter" style="height:127px; object-fit:cover">
-        <img src="images/bake-cherry.jpg" alt="A long pastry topped with meringue and cherries" style="height:127px; object-fit:cover">
+      <div style="display:flex; flex-wrap:wrap; gap:6px; justify-content:center; align-items:center">
+        <img src="images/bake-cake.jpg" alt="A homemade Saint-Honoré cake with cream and choux puffs" style="max-height:210px; margin:0">
+        <img src="images/bake-cherry.jpg" alt="A long pastry topped with meringue and cherries" style="max-height:210px; margin:0">
+        <img src="images/bake-dough.jpg" alt="Dough with poppy seeds and cubes of butter" style="max-height:200px; margin:0">
       </div>
       <p>saint-honoré: 6 hours. eaten: 6 minutes. poppy seeds: everywhere.</p>
     </div>
   </div>
 
-  <div class="win faller" style="left: 66%; top: 1420px; width: 300px; rotate: 5deg">
+  <div class="win faller" style="left: 67%; top: 1060px; width: 300px; rotate: 5deg">
     <div class="tb"><span>my_art.ai (cats in suits)</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
-      <div style="display:flex; gap:6px"><img src="images/cat-suit.jpg" alt="My AI art: a cat in a suit and tie on an armchair by a fireplace" style="height:140px; object-fit:cover"><img src="images/cat-glass.jpg" alt="My AI art: a cat in sunglasses drinking from a glass with a purple straw" style="height:140px; object-fit:cover"></div>
+      <div style="display:flex; gap:6px"><img src="images/cat-suit.jpg" alt="My AI art: a cat in a suit and tie on an armchair by a fireplace" style="max-width:48%; margin:0"><img src="images/cat-glass.jpg" alt="My AI art: a cat in sunglasses drinking from a glass with a purple straw" style="max-width:48%; margin:0"></div>
       <p>i made these. i regret nothing. the cat in the suit is now my lawyer.</p>
     </div>
   </div>
 
-  <div class="win faller" style="left: 4%; top: 960px; width: 420px; rotate: 2deg">
+  <div class="win faller" style="left: 3%; top: 750px; width: 340px; rotate: 2deg">
     <div class="tb"><span>LinkedIn — my 9 to 5.pdf</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
-      <img src="images/meeting.jpg" alt="The four costumed friends in ties at a serious boardroom meeting with a pie chart" style="height: 200px">
+      <img src="images/meeting.jpg" alt="The four costumed friends in ties at a serious boardroom meeting with a pie chart">
       <p><b>Dania Altman</b> · Chief Eh-oh Officer · Design MA candidate · Q3 strategy: more cats, fewer pie charts. <a href="#contcat">Connect ↗</a></p>
     </div>
   </div>
@@ -351,7 +355,7 @@
   <small>fig. 1 — the beginning. you made it. you scrolled the wrong way and it worked.</small>
   <h2 id="title" aria-label="Eh-oh! I'm Dania Altman"></h2>
   <p>Welcome to my website. I'm Dania, 29, mom, baker, cat person. This paragraph is very narrow and justified on purpose so the gaps between the words get really big and uncomfortable to read. Design master's degree, baby.</p>
-  <img class="face" src="images/me-dance.jpg" alt="Me dancing in a white dress, squashed flat">
+  <img class="face" src="images/me-dance.jpg" alt="Me dancing in a white dress">
 </section>
 
 </div><!-- /world -->
@@ -363,19 +367,25 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const $ = s => document.querySelector(s);
   const photos = ['party', 'bathroom', 'snacks', 'laundry', 'karaoke', 'curb'].map(p => `images/${p}.jpg`);
-  const allPhotos = [...photos, 'images/picday.jpg', 'images/meeting.jpg', 'images/cats.jpg', 'images/me-deadpan.jpg', 'images/me-boots.jpg', 'images/me-kinder.jpg', 'images/me-sandwich.jpg', 'images/me-laugh.jpg', 'images/cat-moffi.jpg', 'images/cat-tova-belly.jpg', 'images/bake-cake.jpg', 'images/cat-suit.jpg', 'images/cat-glass.jpg'];
+  const allPhotos = [...photos, 'images/picday.jpg', 'images/meeting.jpg', 'images/cats.jpg', 'images/me-deadpan.jpg', 'images/me-boots.jpg', 'images/me-kinder.jpg', 'images/me-sandwich.jpg', 'images/me-laugh.jpg', 'images/cat-moffi.jpg', 'images/cat-tova-bellyup.jpg', 'images/bake-cake.jpg', 'images/cat-suit.jpg', 'images/cat-glass.jpg'];
   $('#year').textContent = new Date().getFullYear();
 
   // visitor counter that only ever shows tiny numbers
   try { const v = (+localStorage.getItem('v') || 2) + 1; localStorage.setItem('v', v); $('#visits').textContent = String(v).padStart(6, '0'); } catch {}
 
   // ---- the title: every letter gets its own font via CSS nth-child ----
+  // letters are grouped per word so the name never breaks in the middle of a word
   const title = $('#title');
-  [..."Eh-oh! I'm Dania Altman"].forEach(ch => {
-    const s = document.createElement('span');
-    s.textContent = ch === ' ' ? ' ' : ch;
-    s.setAttribute('aria-hidden', 'true');
-    title.appendChild(s);
+  let letterIndex = 0;
+  "Eh-oh! I'm Dania Altman".split(' ').forEach(word => {
+    const w = document.createElement('span');
+    w.className = 'w'; w.setAttribute('aria-hidden', 'true');
+    [...word].forEach(ch => {
+      const s = document.createElement('span');
+      s.textContent = ch; s.className = 'f' + (++letterIndex % 5);
+      w.appendChild(s);
+    });
+    title.appendChild(w);
   });
 
   // ---- draggable windows ----
@@ -452,7 +462,7 @@
 
   // ---- camera roll ----
   const caps = ['the egg was for the kids (it was not)', 'germany. mayo on chin. no regrets', 'tova, belly up, unbothered', 'resting my eyes', 'the face when the code works', 'sofi on the good blanket'];
-  const rollPhotos = ['me-kinder', 'me-sandwich', 'cat-tova-belly', 'me-sleep', 'me-laugh', 'cat-sofi'].map(p => `images/${p}.jpg`);
+  const rollPhotos = ['me-kinder', 'me-sandwich', 'cat-tova-bellyup', 'me-sleep', 'me-laugh', 'cat-sofi'].map(p => `images/${p}.jpg`);
   const roll = $('#roll');
   rollPhotos.forEach((src, i) => {
     const fig = document.createElement('figure');
@@ -464,7 +474,7 @@
   // ---- contact: sending makes the website fall over ----
   $('#form').addEventListener('submit', e => {
     e.preventDefault();
-    document.querySelectorAll('.faller, .win, .roll figure, .hero h2 span').forEach(el => {
+    document.querySelectorAll('.faller, .win, .roll figure, .hero h2 .w span').forEach(el => {
       el.classList.add('faller');
       el.style.transform = `translateY(${innerHeight + 400}px) rotate(${Math.random() * 160 - 80}deg)`;
     });
@@ -540,7 +550,7 @@
   });
 
   // ---- hero letters run from the cursor and talk when clicked ----
-  const letters = [...title.children];
+  const letters = [...title.querySelectorAll('.w span')];
   addEventListener('pointermove', e => {
     if (reduce || e.pointerType !== 'mouse') return;
     for (const s of letters) {
