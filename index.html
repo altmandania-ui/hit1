@@ -67,6 +67,11 @@
   .chip:nth-child(2) { font-size: 26px; background: var(--lime); rotate: -6deg; }
   .chip:nth-child(3) { font-size: 11px; background: var(--pink); color: #fff; }
   .chip.on { filter: invert(1); }
+  .catgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .catgrid img { width: 100%; height: 120px; object-fit: cover; border: 2px inset #fff; }
+  .catgrid img:nth-child(2) { object-fit: fill; }
+  .catgrid img.shake { animation: catshake .5s; }
+  @keyframes catshake { 20%, 60% { transform: rotate(-12deg) scale(1.15); } 40%, 80% { transform: rotate(12deg) scale(1.15); } }
   .winbtn { border: 3px outset #fff; background: var(--gray); padding: 6px 14px; font-family: Tahoma, sans-serif; position: relative; transition: left .15s, top .15s; left: 0; top: 0; }
   .winbtn:active { border-style: inset; }
   .count { font-family: 'Anton', sans-serif; font-size: 60px; color: var(--red); line-height: 1; }
@@ -231,7 +236,7 @@
   <div class="win faller" id="lvoes" style="left: 42%; top: 60px; width: 280px; rotate: 3deg">
     <div class="tb"><span>THINGS_I_LOVE.exe</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
-      <img src="images/snacks.jpg" alt="Green furry costume holding an armful of snacks in a shop" style="height: 120px">
+      <img src="images/me-kinder.jpg" alt="Me holding up a giant Kinder Surprise egg and grinning" style="height: 200px; object-fit: cover; object-position: 50% 15%">
       <p>click them. or don't. i'm a website not a cop.</p>
       <div class="chips"><button class="chip">weird things</button><button class="chip">my 4 cats</button><button class="chip">my two kids</button><button class="chip">ben (most days)</button><button class="chip">poppy seeds</button><button class="chip">cats in suits</button></div>
     </div>
@@ -240,7 +245,7 @@
   <div class="win faller" id="fcats" style="left: 20%; top: 560px; width: 360px; rotate: 1deg">
     <div class="tb"><span>facts.zip (corrupted)</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
-      <img src="images/laundry.jpg" alt="Yellow furry costume asleep on a washing machine" style="height: 150px; object-fit: fill">
+      <img src="images/me-sleep.jpg" alt="Me fast asleep, face squished into my hands" style="height: 150px; object-fit: fill">
       <p><b>FUN FACT:</b> <span id="fact">i have 4 cats and their names rhyme. mostly.</span></p>
       <button class="winbtn" id="nextFact">Next fact</button>
     </div>
@@ -249,7 +254,7 @@
   <div class="win faller" style="left: 62%; top: 470px; width: 260px; rotate: -4deg">
     <div class="tb"><span>hugs.bat</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
-      <img src="images/karaoke.jpg" alt="Red furry costume singing karaoke" style="height: 120px">
+      <img src="images/me-laugh.jpg" alt="Me laughing with my eyes squeezed shut" style="height: 150px; object-fit: cover">
       <p>hugs remaining:</p>
       <div class="count" id="hugs" aria-live="polite">100</div>
       <button class="winbtn" id="hug">Use a hug</button>
@@ -259,8 +264,13 @@
   <div class="win faller" id="cats" style="left: 55%; top: 860px; width: 340px; rotate: -3deg">
     <div class="tb"><span>the_management.jpg</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
-      <img src="images/cats.jpg" alt="Four cats on a couch wearing tiny antenna hats, looking unimpressed" style="height: 220px; object-fit: cover">
-      <p>the real bosses of the house. click a name:</p>
+      <div class="catgrid">
+        <img src="images/cat-sofi.jpg" data-cat="sofi" alt="Sofi, a black cat, lounging on a butterfly blanket">
+        <img src="images/cat-moffi.jpg" data-cat="moffi" alt="Moffi, a fluffy black cat, hiding in the TV stand">
+        <img src="images/cat-toffy.jpg" data-cat="toffy" alt="Toffy, a black and white cat, cuddled up to my face (very low resolution)" style="image-rendering: pixelated">
+        <img src="images/cat-tova.jpg" data-cat="tova" alt="Tova, a tabby and white cat, staring into my soul">
+      </div>
+      <p>the real bosses of the house. click a name and they'll introduce themselves:</p>
       <div class="chips cats"><button class="chip">sofi</button><button class="chip">moffi</button><button class="chip">toffy</button><button class="chip">tova</button></div>
     </div>
   </div>
@@ -270,7 +280,7 @@
     <div class="wb">
       <div style="display:flex; gap:8px">
         <figure style="margin:0; flex:1"><img src="images/me-ai.jpg" alt="An AI-generated dreamy portrait of me in a field at sunset" style="height:200px; object-fit:cover"><figcaption>how the AI sees me</figcaption></figure>
-        <figure style="margin:0; flex:1"><img src="images/me-deadpan.jpg" alt="Me, deadpan, plain background" style="height:200px; object-fit:fill"><figcaption>me at 7am</figcaption></figure>
+        <figure style="margin:0; flex:1"><img src="images/me-selfie.jpg" alt="A blurry low-res selfie of me looking half awake" style="height:200px; object-fit:cover; image-rendering: pixelated"><figcaption>me at 7am</figcaption></figure>
       </div>
     </div>
   </div>
@@ -356,7 +366,7 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const $ = s => document.querySelector(s);
   const photos = ['party', 'bathroom', 'snacks', 'laundry', 'karaoke', 'curb'].map(p => `images/${p}.jpg`);
-  const allPhotos = [...photos, 'images/picday.jpg', 'images/meeting.jpg', 'images/cats.jpg', 'images/me-deadpan.jpg', 'images/me-boots.jpg', 'images/bake-cake.jpg', 'images/cat-suit.jpg', 'images/cat-glass.jpg'];
+  const allPhotos = [...photos, 'images/picday.jpg', 'images/meeting.jpg', 'images/cats.jpg', 'images/me-deadpan.jpg', 'images/me-boots.jpg', 'images/me-kinder.jpg', 'images/me-sandwich.jpg', 'images/me-laugh.jpg', 'images/cat-moffi.jpg', 'images/cat-tova-belly.jpg', 'images/bake-cake.jpg', 'images/cat-suit.jpg', 'images/cat-glass.jpg'];
   $('#year').textContent = new Date().getFullYear();
 
   // visitor counter that only ever shows tiny numbers
@@ -417,6 +427,9 @@
     'sofi, moffi, toffy… and tova, who refused to rhyme.',
     'i once spent 6 hours making a saint-honoré. it survived 6 minutes.',
     'i put poppy seeds on everything. everything.',
+    'i once ate a sandwich in germany and wore half of it. photo evidence in the camera roll.',
+    'i bought a giant kinder egg "for the kids". the kids never saw it.',
+    'tova sleeps belly up. sofi judges her for it.',
     'i make ai pictures of cats in suits. it is a lifestyle, not a phase.',
     'i have more photos of dough on my phone than photos of myself.',
     'i can dance at a wedding for 5 hours straight. photo evidence at the bottom.',
@@ -450,9 +463,10 @@
   });
 
   // ---- camera roll ----
-  const caps = ['halloween 03', 'nye bathroom', '"just one thing"', 'slept here', 'TEQUILA!', '4:03am'];
+  const caps = ['the egg was for the kids (it was not)', 'germany. mayo on chin. no regrets', 'tova, belly up, unbothered', 'resting my eyes', 'the face when the code works', 'sofi on the good blanket'];
+  const rollPhotos = ['me-kinder', 'me-sandwich', 'cat-tova-belly', 'me-sleep', 'me-laugh', 'cat-sofi'].map(p => `images/${p}.jpg`);
   const roll = $('#roll');
-  photos.forEach((src, i) => {
+  rollPhotos.forEach((src, i) => {
     const fig = document.createElement('figure');
     fig.innerHTML = `<img src="${src}" alt="${caps[i]}" loading="lazy"><figcaption>${i % 2 ? `<span class="upside">${caps[i]}</span>` : caps[i]}</figcaption>`;
     fig.addEventListener('click', () => { fig.classList.remove('spin'); void fig.offsetWidth; fig.classList.add('spin'); });
@@ -557,7 +571,11 @@
   });
   letters.forEach(s => s.addEventListener('click', () => say(s.textContent.trim() || 'space', .2 + Math.random() * 1.8)));
   $('.byebye h1').addEventListener('click', () => say('bye bye!', .3));
-  document.querySelectorAll('.cats .chip').forEach(c => c.addEventListener('click', () => say(c.textContent + '. meow.', 1.4 + Math.random() * .6)));
+  document.querySelectorAll('.cats .chip').forEach(c => c.addEventListener('click', () => {
+    say(c.textContent + '. meow.', 1.4 + Math.random() * .6);
+    const img = document.querySelector(`.catgrid img[data-cat="${c.textContent}"]`);
+    img.classList.remove('shake'); void img.offsetWidth; img.classList.add('shake');
+  }));
 
   // ---- the tab begs you to come back, the favicon can't decide ----
   const realTitle = document.title, icon = document.querySelector('link[rel=icon]');
