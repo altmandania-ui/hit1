@@ -13,12 +13,7 @@
   :root { --lime: #39FF14; --pink: #FF00E6; --blue: #0000FF; --yellow: #FFF200; --red: #FF0000; --gray: #C0C0C0; }
   * { box-sizing: content-box; }
   html { scroll-behavior: smooth; }
-  html, body { margin: 0; height: 100%; overflow: hidden; }
-  /* the page scrolls the wrong way: the scroller is flipped, the content is flipped back. wheel, keys and touch all go down to go up. */
-  #scroller { position: fixed; inset: 0; overflow-y: auto; overflow-x: hidden; transform: scaleY(-1); overscroll-behavior: contain; scroll-behavior: smooth; outline: 0; }
-  #unflip { transform: scaleY(-1); }
-  body.scroll-normal #scroller, body.scroll-normal #unflip { transform: none; }
-  .nav .scrollmode { writing-mode: vertical-rl; rotate: 180deg; font: bold 12px 'Courier New', monospace; background: var(--yellow); color: #000; border: 0; padding: 6px 2px; cursor: pointer; margin-top: 6px; }
+  html, body { margin: 0; overflow-x: hidden; overflow-x: clip; }
   /* the order of the sections is a decision. today the cats made it. */
   .flipped-section { rotate: 180deg; }
   .roll-wrap, .yearbook { position: relative; }
@@ -310,7 +305,25 @@
      the order has one face in six sizes. the cats each took a different one */
   /* ---- live shabbat countdown: the only clock on this page that is right ---- */
   .shabbatwall { margin-left: 70px; background: #000 repeating-linear-gradient(-45deg, #000 0 28px, #151515 28px 56px); color: var(--lime); border-block: 10px solid var(--pink); padding: 26px 20px 0; position: relative; overflow: hidden; }
-  .sw-label { font-family: 'Courier New', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--yellow); margin: 0 0 10px; }
+  .sw-candles { position: absolute; left: 3.5%; top: 110px; display: flex; gap: 26px; align-items: flex-end; z-index: 2; }
+  .candle { position: relative; display: block; width: 26px; height: 120px; background: linear-gradient(90deg, #fff 0, #f3f0e6 50%, #cfc9b8 100%); border-radius: 4px 4px 2px 2px; box-shadow: 4px 4px 0 var(--pink); }
+  .candle::after { content: ''; position: absolute; left: -12px; bottom: -22px; width: 50px; height: 22px; background: linear-gradient(#e8e8e8, #8a8a8a); border-radius: 50%; box-shadow: 0 6px 0 #444; }
+  .candle::before { content: ''; position: absolute; left: 11px; top: -8px; width: 4px; height: 10px; background: #222; }
+  .candle b { position: absolute; left: 3px; top: -44px; width: 20px; height: 40px; background: radial-gradient(ellipse at 50% 80%, #fff 0, #ffe36b 30%, #ff8a00 65%, transparent 72%); border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; transform-origin: 50% 100%; animation: flame .35s ease-in-out infinite alternate; filter: drop-shadow(0 0 10px #ffb300) drop-shadow(0 0 28px #ff7a00); }
+  .candle:nth-child(2) b { animation-duration: .47s; }
+  @keyframes flame { from { transform: scale(1, 1) rotate(-4deg); } to { transform: scale(.85, 1.15) rotate(5deg); } }
+  .sw-candles .hand { position: absolute; left: -10px; top: -78px; width: 160px; font-size: 15px; line-height: 19px; rotate: -6deg; background: var(--yellow); padding: 0 6px; }
+  .shabbatwall.resting .sw-candles .hand { display: none; }
+  .win video, .goldframe video, .recep video { display: block; }
+  .win video { width: 100%; border: 2px inset #fff; }
+  .goldframe video { width: 300px; height: 375px; object-fit: cover; border: 4px inset #c9a227; }
+  .recep { position: absolute; right: 4%; bottom: 14px; width: 230px; margin: 0; rotate: -5deg; }
+  .recep video { width: 100%; border: 6px solid var(--pink); box-shadow: 6px 6px 0 #000; }
+  .recep .hand { display: block; margin-top: 6px; }
+  .fakefooter video { height: 46px; vertical-align: middle; border: 2px solid var(--lime); margin-left: 8px; }
+  .loader video { width: min(300px, 60vw); border: 4px solid #fff; margin: 0 auto; display: block; }
+  .roll figure video { width: 330px; height: 250px; object-fit: cover; display: block; border: 8px solid #fff; box-shadow: 6px 6px 0 var(--pink); }
+  .sw-label { font-family: 'Courier New', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--yellow); margin: 0 0 10px; padding-left: 300px; }
   .sw-title { font-family: 'Suez One', serif; font-size: clamp(64px, 15vw, 210px); line-height: .9; color: var(--yellow); margin: 0; text-align: center; -webkit-text-stroke: 3px var(--blue); text-shadow: 10px 10px 0 var(--pink); animation: swSway 2.4s ease-in-out infinite alternate; }
   @keyframes swSway { from { rotate: -3deg; scale: .98; } to { rotate: 3deg; scale: 1.03; } }
   .sw-clock { display: flex; justify-content: center; align-items: flex-end; gap: 1.2vw; margin: 26px 0 18px; padding-right: 250px; font-family: 'Press Start 2P', monospace; perspective: 600px; }
@@ -386,9 +399,16 @@
     .sofi-d { position: relative; right: auto; top: 0; width: 200px; margin: 0 0 16px auto; }
     .pos-side .sofi { top: 0; }
     .shabbatwall { margin-left: 46px; padding: 18px 12px 0; }
+    .sw-label { padding-left: 0; }
     .sw-clock { gap: 6px; flex-wrap: wrap; padding-right: 0; }
-    .sw-unit b { font-size: 26px; border-width: 3px; box-shadow: 4px 4px 0 var(--pink); }
-    .sw-sep { font-size: 26px; padding-bottom: 26px; }
+    .sw-candles { position: static; justify-content: center; margin: 70px 0 30px; }
+    .sw-candles { align-items: center; gap: 22px; margin: 50px 0 44px; }
+    .sw-candles .hand { position: static; width: 150px; font-size: 14px; line-height: 17px; }
+    .goldframe video { width: 200px; height: 250px; }
+    .recep { position: relative; right: auto; bottom: auto; width: 200px; margin: 30px 0 0 auto; }
+    .sw-unit b { font-size: 22px; min-width: 1.4em; border-width: 3px; box-shadow: 4px 4px 0 var(--pink); }
+    .sw-sep { font-size: 22px; padding-bottom: 26px; }
+    .sw-clock { gap: 4px; }
     .sw-sub { padding-right: 0; font-size: 13px; }
     .sw-chef { position: relative; right: auto; bottom: auto; width: 110px; margin: 60px 0 24px auto; transform-origin: bottom right; transform: scale(calc(1 + (var(--grow, 1) - 1) * .4)); }
     .sw-chef .hand { left: auto; right: 100%; top: 10px; width: 150px; font-size: 13px; line-height: 16px; }
@@ -407,7 +427,6 @@
     .nav { width: 46px; }
     .nav a { font-size: 14px; }
     .nav .counter { display: none; }
-    .nav .scrollmode { font-size: 10px; }
     .fakefooter, .byebye { padding-left: 58px; }
     .desktop, .roll-wrap, .contact, .hero { margin-left: 46px; }
     .desktop { min-height: 4200px; }
@@ -440,13 +459,13 @@
   <a href="#position">pozition</a>
   <a href="#contcat">contcat</a>
   <a href="#start">START →</a>
-  <button class="scrollmode" id="scrollmode" title="the scroll goes the wrong way. this button makes it boring.">scroll: ↓ is ↑</button>
   <span class="counter">visitor #<span id="visits">000003</span></span>
 </nav>
 
 <div class="loader" id="loader" role="status">
   <b>LOADING WEBSITE…</b>
   <div class="bar"><i id="barFill"></i></div>
+  <video src="images/vid-cursor.mp4" autoplay muted loop playsinline aria-label="A mouse cursor slowly moves to a logo and clicks it"></video>
   <span id="loadMsg">0% · downloading vibes</span>
   <small>(click anywhere to skip, coward)</small>
 </div>
@@ -455,13 +474,13 @@
   <filter id="melt"><feTurbulence id="meltNoise" type="turbulence" baseFrequency="0.012 0.04" numOctaves="2" seed="3"/><feDisplacementMap id="meltMap" in="SourceGraphic" scale="0"/></filter>
 </svg>
 
-<div id="scroller" tabindex="-1"><div id="unflip"><div id="world">
+<div id="world">
 <div class="fakefooter faller">
   <span>© 1999–<span id="year"></span> DANIA ALTMAN ALL RIGHTS RESERVED (NONE) · <span lang="he" dir="rtl">כל הזכויות שמורות (לא)</span> · SOFI, MOFFI, TOFFY &amp; TOVA RESERVE THE RIGHT TO SIT ON THE KEYBOARD</span>
-  <a href="#start">back to the start (it's at the bottom. you began there. scroll down to go up.)</a>
+  <a href="#start">back to the start (it's at the bottom)</a>
   <span>today's order: <b id="orderToday">…</b> <button id="reorder" type="button">↺ shuffle</button> · the order is a decision. today the cats made it.</span>
   <span>best viewed in Netscape Navigator 4.0 at 800×600</span>
-  <span>webmaster: unreachable</span>
+  <span>webmaster: unreachable · his assistant: <video src="images/vid-webmaster-dog.mp4" autoplay muted loop playsinline preload="metadata" aria-label="A golden retriever in sunglasses gives a thumbs up as the screen says BUILD SUCCESSFUL"></video> build successful. he is a dog.</span>
   <a href="docs/PROCESS.md">process documentation (what the AI suggested, what i said back)</a>
   <a href="#type">fonts: too many</a>
 </div>
@@ -672,6 +691,22 @@
     </div>
   </div>
 
+  <div class="win faller" style="left: 66%; top: 2060px; width: 300px; rotate: -3deg">
+    <div class="tb"><span>sofi_day_job.mov</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
+    <div class="wb">
+      <video src="images/vid-sofi-cashier.mp4" autoplay muted loop playsinline preload="metadata" aria-label="A black cat in sunglasses and an apron works a supermarket checkout, scanning oranges"></video>
+      <p>sofi has a day job. she scans the oranges. she does not bag. do not ask her to bag.</p>
+    </div>
+  </div>
+
+  <div class="win faller" style="left: 4%; top: 2120px; width: 280px; rotate: 2deg">
+    <div class="tb"><span>the_kids_podcast.mov</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
+    <div class="wb">
+      <video src="images/vid-kids-podcast.mp4" autoplay muted loop playsinline preload="metadata" aria-label="A baby wearing big headphones talks into a podcast microphone"></video>
+      <p>my kids have a podcast now. episode 1: "why is mom's website like this". 40 minutes. no answer.</p>
+    </div>
+  </div>
+
   <div class="win faller" style="left: 3%; top: 750px; width: 340px; rotate: 2deg">
     <div class="tb"><span>LinkedIn — my 9 to 5.pdf</span><span><button aria-label="Minimize">_</button><button aria-label="Close" class="x">×</button></span></div>
     <div class="wb">
@@ -683,6 +718,7 @@
 
 <section class="shabbatwall" id="shabat" aria-label="Live countdown to Shabbat" data-fig="Fig. 2¾">
   <p class="sw-label">Fig. 2¾ · live · hebcal.com · tel aviv · the only clock on this page that is right</p>
+  <div class="sw-candles" aria-hidden="true"><i class="candle"><b></b></i><i class="candle"><b></b></i><span class="hand">lit early. tova couldn't wait.</span></div>
   <h2 class="sw-title" id="swTitle" lang="he" dir="rtl">שבת בעוד</h2>
   <div class="sw-clock" id="swClock" role="timer" aria-label="Time until Shabbat">
     <span class="sw-unit"><b id="swD">--</b><i>days</i></span><span class="sw-sep" aria-hidden="true">:</span>
@@ -729,6 +765,10 @@
   <figure class="goldframe">
     <img src="images/picday.jpg" alt="School picture day portrait of the yellow costume in front of a laser background, hands under chin" loading="lazy">
     <figcaption>picture day, 1998</figcaption>
+  </figure>
+  <figure class="goldframe">
+    <video src="images/vid-dog-coat.mp4" autoplay muted loop playsinline preload="metadata" aria-label="A dog in a green fur coat and high heels walks down a city street"></video>
+    <figcaption>best dressed. not a cat. we have questions.</figcaption>
   </figure>
   <div class="votes">
     <h2>yearbook superlatives</h2>
@@ -790,6 +830,10 @@
     <label for="f-msg">↑ message (typed right-to-left vibes)</label>
     <button class="send" type="submit">send</button>
   </form>
+  <figure class="recep">
+    <video src="images/vid-leopard-party.mp4" autoplay muted loop playsinline preload="metadata" aria-label="A leopard in sunglasses sits on a couch at a dance party"></video>
+    <figcaption class="hand">the receptionist. he will not answer. he is at a party.</figcaption>
+  </figure>
 </section>
 
 <section class="hero" id="start">
@@ -799,7 +843,7 @@
   <img class="face" src="images/me-dance.jpg" alt="Me dancing in a white dress">
 </section>
 
-</div><!-- /world --></div></div>
+</div><!-- /world --></div>
 
 <button class="panic" id="panic">do not press</button>
 <button class="rebuild" id="rebuild">↺ rebuild website</button>
@@ -1115,6 +1159,10 @@
     fig.addEventListener('click', () => { fig.classList.remove('spin'); void fig.offsetWidth; fig.classList.add('spin'); });
     roll.appendChild(fig);
   });
+  const hotdog = document.createElement('figure');
+  hotdog.innerHTML = `<video src="images/vid-hotdog-couch.mp4" autoplay muted loop playsinline preload="metadata" aria-label="A hot dog with mustard sits on a black leather couch"></video><figcaption>not my couch. not my hot dog. (ai. i regret it.)</figcaption>`;
+  hotdog.addEventListener('click', () => { hotdog.classList.remove('spin'); void hotdog.offsetWidth; hotdog.classList.add('spin'); });
+  roll.insertBefore(hotdog, roll.children[3] || null);
 
   // ---- contact: sending makes the website fall over ----
   $('#form').addEventListener('submit', e => {
@@ -1150,44 +1198,18 @@
   }, reduce ? 60 : 420);
   loader.addEventListener('click', finish);
 
-  // ---- the scroll goes the wrong way ----
-  // #scroller is flipped and #unflip flips the content back, so wheel, keys and touch all move the page the wrong way.
-  const scroller = $('#scroller');
-  const inverted = () => !document.body.classList.contains('scroll-normal');
-  const worldTop = el => el.getBoundingClientRect().top - world.getBoundingClientRect().top;  // where el sits inside #world
-  const scrollTopFor = u => inverted() ? scroller.scrollHeight - u - scroller.clientHeight : u;
-  const goTo = (el, behavior = 'smooth') => scroller.scrollTo({ top: Math.max(0, scrollTopFor(worldTop(el))), behavior });
+  // ---- jump to a section (the nav, the footer, the portal) ----
+  const goTo = (el, behavior = 'smooth') => { world.style.transform = ''; scrollTo({ top: el.getBoundingClientRect().top + scrollY - 8, behavior }); };
   window.goTo = goTo;
-  document.addEventListener('click', e => {
-    const a = e.target.closest('a[href^="#"]'); if (!a || a.getAttribute('href').length < 2) return;
-    const el = document.getElementById(a.getAttribute('href').slice(1)); if (!el) return;
-    e.preventDefault(); goTo(el); history.replaceState(null, '', a.getAttribute('href'));
-  });
-  if (location.hash && document.getElementById(location.hash.slice(1))) setTimeout(() => goTo(document.getElementById(location.hash.slice(1)), 'auto'), 50);
-  $('#scrollmode').addEventListener('click', () => {
-    const st = scroller.scrollTop, H = scroller.scrollHeight, vh = scroller.clientHeight;
-    const normal = document.body.classList.toggle('scroll-normal');
-    scroller.style.scrollBehavior = 'auto'; scroller.scrollTop = H - st - vh; scroller.style.scrollBehavior = '';
-    $('#scrollmode').textContent = normal ? 'scroll: boring' : 'scroll: ↓ is ↑';
-    say(normal ? 'fine. boring scroll.' : 'down is up again.');
-  });
-  document.addEventListener('keydown', e => {
-    if (e.metaKey || e.ctrlKey || e.altKey || e.target.matches('input, textarea, select')) return;
-    const vh = scroller.clientHeight;
-    const map = { ArrowDown: 80, ArrowUp: -80, PageDown: vh * .9, PageUp: -vh * .9, ' ': e.shiftKey ? -vh * .9 : vh * .9, Home: -1e9, End: 1e9 };
-    if (!(e.key in map)) return;
-    e.preventDefault(); scroller.scrollBy({ top: map[e.key], behavior: 'smooth' });
-  });
 
   // ---- seasick: the whole site tilts as you scroll ----
   let tiltRaf = 0;
-  if (!reduce) scroller.addEventListener('scroll', () => {
+  if (!reduce) addEventListener('scroll', () => {
     cancelAnimationFrame(tiltRaf);
     tiltRaf = requestAnimationFrame(() => { if (world.classList.contains('flipped')) return;
       // pivot around the middle of the screen, so whatever you are reading stays in place and only rocks
-      const mid = inverted() ? scroller.scrollHeight - scroller.scrollTop - innerHeight / 2 : scroller.scrollTop + innerHeight / 2;
-      world.style.transformOrigin = `50% ${mid}px`;
-      world.style.transform = `rotate(${(Math.sin(scroller.scrollTop / 350) * 2.2).toFixed(2)}deg)`; });
+      world.style.transformOrigin = `50% ${scrollY + innerHeight / 2}px`;
+      world.style.transform = `rotate(${(Math.sin(scrollY / 350) * 2.2).toFixed(2)}deg)`; });
   }, { passive: true });
 
   // ---- melt when idle ----
