@@ -13,7 +13,19 @@
   :root { --lime: #39FF14; --pink: #FF00E6; --blue: #0000FF; --yellow: #FFF200; --red: #FF0000; --gray: #C0C0C0; }
   * { box-sizing: content-box; }
   html { scroll-behavior: smooth; }
-  html, body { margin: 0; overflow-x: hidden; overflow-x: clip; }
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  /* the page scrolls the wrong way: the scroller is flipped, the content is flipped back. wheel, keys and touch all go down to go up. */
+  #scroller { position: fixed; inset: 0; overflow-y: auto; overflow-x: hidden; transform: scaleY(-1); overscroll-behavior: contain; scroll-behavior: smooth; outline: 0; }
+  #unflip { transform: scaleY(-1); }
+  body.scroll-normal #scroller, body.scroll-normal #unflip { transform: none; }
+  .nav .scrollmode { writing-mode: vertical-rl; rotate: 180deg; font: bold 12px 'Courier New', monospace; background: var(--yellow); color: #000; border: 0; padding: 6px 2px; cursor: pointer; margin-top: 6px; }
+  /* the order of the sections is a decision. today the cats made it. */
+  .flipped-section { rotate: 180deg; }
+  .roll-wrap, .yearbook { position: relative; }
+  .unflip-btn { display: none; position: absolute; left: 14px; bottom: 14px; z-index: 5; rotate: 180deg; font: bold 14px 'Courier New', monospace; background: var(--pink); color: #fff; border: 3px solid #000; padding: 8px 12px; cursor: pointer; box-shadow: 4px 4px 0 #000; }
+  .flipped-section .unflip-btn { display: block; }
+  .fakefooter button { font: inherit; background: var(--lime); color: #000; border: 0; padding: 0 6px; cursor: pointer; }
+  .fakefooter b { color: #fff; }
   body {
     font-family: 'Times New Roman', Times, serif; font-size: 17px; color: #000;
     background: var(--lime) url(images/me-deadpan.jpg) 0 0 / 76px 76px;
@@ -128,7 +140,7 @@
   .popup .wb img { width: 70px; height: 70px; flex: none; object-fit: cover; }
 
   /* ---------- even weirder ---------- */
-  #world { transform-origin: 50% 30vh; will-change: transform; }
+  #world { position: relative; transform-origin: 50% 30vh; will-change: transform; }
   #world.melting { filter: url(#melt); }
   #world.flipped { transform: rotate(180deg) !important; transition: transform .8s cubic-bezier(.5,-0.6,.5,1.6); }
 
@@ -247,6 +259,16 @@
   .fields > div:nth-child(4) { --k: 1.6; --k2: .8; }
   .fields > div:nth-child(5) { --k: -1.1; --k2: -.7; }
   .fields > div:nth-child(6) { --k: .7; --k2: 1.1; }
+  .fields > div:nth-child(7) { --k: -.8; --k2: -1.5; }
+  .fields > div:nth-child(8) { --k: 1.2; --k2: .4; }
+  .fields > div:nth-child(9) { --k: -1.5; --k2: .9; }
+  .fields > div:nth-child(8) .hand { left: 2%; top: -22px; rotate: -3deg; }
+  .fields .live { display: block; margin-top: var(--u); opacity: .7; }
+  .fields .live::before { content: '●'; color: var(--swiss); margin-right: .5em; }
+  .fields .loading .live::before { animation: pulse 1s steps(2, end) infinite; }
+  .fields .failed .live::before { color: var(--ink, #000); opacity: .3; }
+  .fields dd .spec { display: block; margin-top: var(--u); }
+  @keyframes pulse { 50% { opacity: 0; } }
   .catdial { display: flex; align-items: center; gap: var(--u); margin-top: var(--u); }
   .catdial input { flex: 1; margin: 0; height: 24px; accent-color: var(--accent, var(--swiss)); cursor: pointer; }
   .catdial output { min-width: 5ch; font-variant-numeric: tabular-nums; }
@@ -261,6 +283,7 @@
   .toffy img { image-rendering: pixelated; }
   .c-photo img { cursor: pointer; transition: rotate .25s cubic-bezier(.3, 1.6, .5, 1); }
   .c-photo img:active { rotate: -3deg; }
+  .c-photo { align-self: start; }
   .c-photo .hand { position: absolute; left: 60%; bottom: 14%; rotate: 8deg; white-space: nowrap; pointer-events: none; }
 
   /* fig. 2: the order's one button, and what the cat thinks of it */
@@ -285,6 +308,31 @@
 
   /* ================= TYPE SPECIMEN (UNAUTHORISED) =================
      the order has one face in six sizes. the cats each took a different one */
+  /* ---- live shabbat countdown: the only clock on this page that is right ---- */
+  .shabbatwall { margin-left: 70px; background: #000 repeating-linear-gradient(-45deg, #000 0 28px, #151515 28px 56px); color: var(--lime); border-block: 10px solid var(--pink); padding: 26px 20px 0; position: relative; overflow: hidden; }
+  .sw-label { font-family: 'Courier New', monospace; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--yellow); margin: 0 0 10px; }
+  .sw-title { font-family: 'Suez One', serif; font-size: clamp(64px, 15vw, 210px); line-height: .9; color: var(--yellow); margin: 0; text-align: center; -webkit-text-stroke: 3px var(--blue); text-shadow: 10px 10px 0 var(--pink); animation: swSway 2.4s ease-in-out infinite alternate; }
+  @keyframes swSway { from { rotate: -3deg; scale: .98; } to { rotate: 3deg; scale: 1.03; } }
+  .sw-clock { display: flex; justify-content: center; align-items: flex-end; gap: 1.2vw; margin: 26px 0 18px; padding-right: 250px; font-family: 'Press Start 2P', monospace; perspective: 600px; }
+  .sw-unit { display: flex; flex-direction: column; align-items: center; }
+  .sw-unit b { font-size: clamp(28px, 5.2vw, 84px); font-weight: normal; line-height: 1; color: #fff; background: var(--blue); padding: .14em .12em .1em; border: 5px solid var(--yellow); box-shadow: 8px 8px 0 var(--pink); display: inline-block; min-width: 1.6em; text-align: center; }
+  .sw-unit:nth-child(1) b { rotate: -2deg; } .sw-unit:nth-child(3) b { rotate: 1.5deg; background: var(--pink); box-shadow: 8px 8px 0 var(--blue); } .sw-unit:nth-child(5) b { rotate: -1deg; } .sw-unit:nth-child(7) b { rotate: 2.5deg; background: var(--red); }
+  .sw-unit b.flip { animation: swFlip .45s cubic-bezier(.3, 1.4, .5, 1); }
+  @keyframes swFlip { 0% { transform: rotateX(0); } 45% { transform: rotateX(90deg); background: var(--lime); color: #000; } 100% { transform: rotateX(0); } }
+  .sw-unit i { font-style: normal; font-size: 11px; margin-top: 10px; color: var(--yellow); letter-spacing: .25em; text-transform: uppercase; }
+  .sw-sep { font-size: clamp(20px, 3.6vw, 56px); color: var(--pink); line-height: 1; padding-bottom: 30px; animation: blink 1s steps(1) infinite; }
+  .sw-sub { text-align: center; font-family: 'Courier New', monospace; font-size: 15px; color: var(--lime); margin: 0 auto 26px; max-width: 760px; padding-right: 180px; }
+  .sw-chef { position: absolute; right: 2%; bottom: 112px; width: 150px; margin: 0; transform-origin: bottom right; transform: scale(var(--grow, 1)); transition: transform 1.5s cubic-bezier(.3, 1.4, .5, 1); z-index: 1; }
+  .sw-chef img { width: 100%; display: block; border: 5px solid #fff; rotate: 6deg; box-shadow: 6px 6px 0 var(--pink); }
+  .sw-chef .hand { position: absolute; left: -6px; top: -64px; width: 175px; background: var(--yellow); padding: 0 6px; font-size: 15px; line-height: 19px; rotate: -5deg; }
+  .shabbatwall.resting .sw-title { color: #fff; -webkit-text-stroke-color: var(--pink); text-shadow: 10px 10px 0 var(--blue); animation: none; }
+  .shabbatwall.resting .sw-sep { animation: none; }
+  marquee.sw-date { background: var(--pink); color: #000; font-family: 'Suez One', serif; font-size: 40px; border-block: 5px solid var(--yellow); margin: 0 -20px; text-transform: none; }
+  .sw-ticker { display: flex; align-items: stretch; margin: 0 -20px; background: #000; }
+  .sw-tk { background: var(--lime); color: #000; font-family: 'Courier New', monospace; font-weight: bold; font-size: 14px; padding: 10px 12px; display: flex; align-items: center; white-space: nowrap; }
+  .sw-ticker marquee { flex: 1; background: #000; color: var(--lime); font-family: 'Courier New', monospace; font-size: 17px; text-transform: none; border: 0; padding: 9px 0; }
+  .sw-ticker marquee b { color: var(--yellow); }
+  @media (prefers-reduced-motion: reduce) { .sw-title, .sw-sep, .sw-unit b.flip { animation: none; } }
   .typewall { margin-left: 70px; background: var(--yellow); border-block: 10px solid #000; padding: 28px 20px 50px; position: relative; overflow: hidden; }
   .typewall .tw-label { margin: 0 0 8px; font-family: 'Archivo', sans-serif; }
   .tw-words { position: relative; height: 700px; }
@@ -337,6 +385,15 @@
     .officer figcaption { width: auto; }
     .sofi-d { position: relative; right: auto; top: 0; width: 200px; margin: 0 0 16px auto; }
     .pos-side .sofi { top: 0; }
+    .shabbatwall { margin-left: 46px; padding: 18px 12px 0; }
+    .sw-clock { gap: 6px; flex-wrap: wrap; padding-right: 0; }
+    .sw-unit b { font-size: 26px; border-width: 3px; box-shadow: 4px 4px 0 var(--pink); }
+    .sw-sep { font-size: 26px; padding-bottom: 26px; }
+    .sw-sub { padding-right: 0; font-size: 13px; }
+    .sw-chef { position: relative; right: auto; bottom: auto; width: 110px; margin: 60px 0 24px auto; transform-origin: bottom right; transform: scale(calc(1 + (var(--grow, 1) - 1) * .4)); }
+    .sw-chef .hand { left: auto; right: 100%; top: 10px; width: 150px; font-size: 13px; line-height: 16px; }
+    marquee.sw-date, .sw-ticker { margin: 0 -12px; }
+    marquee.sw-date { font-size: 28px; }
     .typewall { margin-left: 46px; padding: 20px 12px 40px; }
     .tw-words { height: 540px; }
     .seeds-t { display: none; }
@@ -350,6 +407,7 @@
     .nav { width: 46px; }
     .nav a { font-size: 14px; }
     .nav .counter { display: none; }
+    .nav .scrollmode { font-size: 10px; }
     .fakefooter, .byebye { padding-left: 58px; }
     .desktop, .roll-wrap, .contact, .hero { margin-left: 46px; }
     .desktop { min-height: 4200px; }
@@ -378,9 +436,11 @@
   <a href="#galery">galery</a>
   <a href="#fcats">fcats</a>
   <a href="#type">tyopgraphy</a>
+  <a href="#shabat">shabatt</a>
   <a href="#position">pozition</a>
   <a href="#contcat">contcat</a>
   <a href="#start">START →</a>
+  <button class="scrollmode" id="scrollmode" title="the scroll goes the wrong way. this button makes it boring.">scroll: ↓ is ↑</button>
   <span class="counter">visitor #<span id="visits">000003</span></span>
 </nav>
 
@@ -395,10 +455,11 @@
   <filter id="melt"><feTurbulence id="meltNoise" type="turbulence" baseFrequency="0.012 0.04" numOctaves="2" seed="3"/><feDisplacementMap id="meltMap" in="SourceGraphic" scale="0"/></filter>
 </svg>
 
-<div id="world">
+<div id="scroller" tabindex="-1"><div id="unflip"><div id="world">
 <div class="fakefooter faller">
   <span>© 1999–<span id="year"></span> DANIA ALTMAN ALL RIGHTS RESERVED (NONE) · <span lang="he" dir="rtl">כל הזכויות שמורות (לא)</span> · SOFI, MOFFI, TOFFY &amp; TOVA RESERVE THE RIGHT TO SIT ON THE KEYBOARD</span>
-  <a href="#start">back to top (it's at the bottom)</a>
+  <a href="#start">back to the start (it's at the bottom. you began there. scroll down to go up.)</a>
+  <span>today's order: <b id="orderToday">…</b> <button id="reorder" type="button">↺ shuffle</button> · the order is a decision. today the cats made it.</span>
   <span>best viewed in Netscape Navigator 4.0 at 800×600</span>
   <span>webmaster: unreachable</span>
   <a href="docs/PROCESS.md">process documentation (what the AI suggested, what i said back)</a>
@@ -414,7 +475,7 @@
 <marquee scrollamount="12" class="faller">✦ eh-oh ✦ <span lang="he">שבת שלום</span> ✦ under construction since 2003 ✦ dania altman ✦ 29 ✦ 4 cats ✦ 2 kids ✦ 1 ben ✦ 1000 poppy seeds ✦ i like weird things ✦ photos from the night ✦ no context will be provided ✦ again! again! ✦ <span lang="he">ביי ביי</span> ✦ <span lang="he">מיאו</span> ✦</marquee>
 <marquee scrollamount="3" direction="right" class="slow faller">this website is intentionally bad. if you think it's good, something went wrong. ⚠️ <span class="blink">NEW!!</span></marquee>
 
-<section class="swiss" id="tpl" aria-labelledby="tpl-h">
+<section class="swiss" id="tpl" aria-labelledby="tpl-h" data-fig="Fig. 0">
   <div class="cols" aria-hidden="true"></div>
   <div class="grid">
     <p class="spec" style="grid-column: 1 / 4"><b class="num">Exhibit A</b><br>Templatology</p>
@@ -446,7 +507,7 @@
   </div>
 </section>
 
-<section class="swiss" id="order" aria-label="Identity card">
+<section class="swiss" id="order" aria-label="Identity card" data-fig="Fig. 1">
   <div class="cols" aria-hidden="true"></div>
   <div class="grid">
     <p class="spec c-meta"><b class="num">Fig. 1</b><br>Identity card<br><span lang="he" dir="rtl">תעודת זהות</span><br>No. 001<br>Order</p>
@@ -465,6 +526,10 @@
         <span class="hand" id="catNote" aria-hidden="true">the cats are in charge</span></div>
       <div><dt class="spec"><b class="num">05</b> Makes</dt><dd>Saint-Honoré, cats in suits, this page</dd></div>
       <div><dt class="spec"><b class="num">06</b> Believes</dt><dd>Order is a decision. Mess is information. <span lang="he" dir="rtl">שבת שלום.</span></dd></div>
+      <div class="loading"><dt class="spec"><b class="num">07</b> Today</dt><dd id="hdate">loading…</dd><span class="spec live">live · Hebrew date · hebcal.com</span></div>
+      <div class="loading"><dt class="spec"><b class="num">08</b> Shabbat</dt><dd id="shabbatDd">loading…</dd><span class="spec live">live · candles · Tel Aviv · hebcal.com</span>
+        <span class="hand" aria-hidden="true">real. check it against the sky.</span></div>
+      <div class="loading"><dt class="spec"><b class="num">09</b> Last edited</dt><dd id="commitDd">loading…</dd><span class="spec live">live · this page’s git history · api.github.com</span></div>
     </dl>
     <p class="spec c-rules">12 columns · 24 gutter · 48 margin · 8 baseline · Archivo 13 / 17 / 26 / 40 / 96 / 176 · ink, paper, one red. Chosen, not accepted. <span id="integrity">Grid integrity: 61%. A normal day.</span></p>
   </div>
@@ -490,7 +555,7 @@
   </figure>
 </section>
 
-<section class="desktop" aria-label="Desktop. Drag the windows around.">
+<section class="desktop" aria-label="Desktop. Drag the windows around." data-fig="Fig. 2">
   <div class="cols" aria-hidden="true"></div>
   <div class="desktop-label" id="deskLabel">Fig. 2<br>the grid holds.<br>the windows don't.</div>
   <button class="tidy" id="tidy" title="Align every window to the grid. Briefly.">Tidy up ↹ align to grid</button>
@@ -602,7 +667,8 @@
     <div class="wb" dir="rtl" lang="he">
       <p class="shabbat" data-say="שבת שלום">שבת שלום</p>
       <p>כל יום שישי: סן־הונורה במקום חלה. החתולים מתנגדים. ואוכלים אותה בכל זאת.</p>
-      <p dir="ltr" lang="en" style="font-family: 'Courier New', monospace; text-align: left; font-size: 12px">(shabbat shalom. every friday: saint-honoré instead of challah. the cats object. they eat it anyway.)</p>
+      <p id="shabbatHe">מחשב מתי שבת…</p>
+      <p dir="ltr" lang="en" style="font-family: 'Courier New', monospace; text-align: left; font-size: 12px">(shabbat shalom. every friday: saint-honoré instead of challah. the cats object. they eat it anyway.) <span id="shabbatEn"></span></p>
     </div>
   </div>
 
@@ -615,7 +681,26 @@
   </div>
 </section>
 
-<section class="typewall" id="type" aria-label="Type specimen, unauthorised">
+<section class="shabbatwall" id="shabat" aria-label="Live countdown to Shabbat" data-fig="Fig. 2¾">
+  <p class="sw-label">Fig. 2¾ · live · hebcal.com · tel aviv · the only clock on this page that is right</p>
+  <h2 class="sw-title" id="swTitle" lang="he" dir="rtl">שבת בעוד</h2>
+  <div class="sw-clock" id="swClock" role="timer" aria-label="Time until Shabbat">
+    <span class="sw-unit"><b id="swD">--</b><i>days</i></span><span class="sw-sep" aria-hidden="true">:</span>
+    <span class="sw-unit"><b id="swH">--</b><i>hrs</i></span><span class="sw-sep" aria-hidden="true">:</span>
+    <span class="sw-unit"><b id="swM">--</b><i>min</i></span><span class="sw-sep" aria-hidden="true">:</span>
+    <span class="sw-unit"><b id="swS">--</b><i>sec</i></span>
+  </div>
+  <p class="sw-sub" id="swSub">asking the sky when it gets dark in tel aviv…</p>
+  <figure class="sw-chef" id="swChef">
+    <img src="images/cat-tova-chef.jpg" alt="Tova the cat as a pastry chef, holding a Saint-Honoré" width="150">
+    <figcaption class="hand">tova's anticipation, to scale. she grows as friday comes.</figcaption>
+  </figure>
+  <marquee class="sw-date faller" id="swDate" scrollamount="8" direction="right" lang="he" dir="rtl">✦ איזה יום היום? שואלים את hebcal ✦</marquee>
+  <div class="sw-ticker"><span class="sw-tk">GIT · LIVE</span><marquee id="swGit" scrollamount="6">loading this page's own history from api.github.com…</marquee></div>
+</section>
+
+<section class="typewall" id="type" aria-label="Type specimen, unauthorised" data-fig="Fig. 2½">
+  <button class="unflip-btn" type="button">the cats turned this over. turn it back ↻</button>
   <p class="spec tw-label"><b class="num">Fig. 2½</b> · Type specimen · unauthorised · the order has one face in six sizes. the cats each took a different one. click a cat.</p>
   <div class="tw-words">
     <b class="tw sofi-t" data-say="sofi">SOFI</b>
@@ -633,12 +718,14 @@
   <div class="tw-out" id="twOut" aria-live="polite" dir="auto"></div>
 </section>
 
-<section class="roll-wrap" id="galery">
+<section class="roll-wrap" id="galery" data-fig="Fig. 7">
+  <button class="unflip-btn" type="button">the cats turned this over. turn it back ↻</button>
   <h2>camera roll <span>(scroll sideways, like a crab)</span> →→→</h2>
   <div class="roll" id="roll"></div>
 </section>
 
-<section class="yearbook" aria-label="Yearbook">
+<section class="yearbook" id="yearbook" aria-label="Yearbook" data-fig="Fig. ∞">
+  <button class="unflip-btn" type="button">the cats turned this over. turn it back ↻</button>
   <figure class="goldframe">
     <img src="images/picday.jpg" alt="School picture day portrait of the yellow costume in front of a laser background, hands under chin" loading="lazy">
     <figcaption>picture day, 1998</figcaption>
@@ -712,7 +799,7 @@
   <img class="face" src="images/me-dance.jpg" alt="Me dancing in a white dress">
 </section>
 
-</div><!-- /world -->
+</div><!-- /world --></div></div>
 
 <button class="panic" id="panic">do not press</button>
 <button class="rebuild" id="rebuild">↺ rebuild website</button>
@@ -892,8 +979,9 @@
   let seedsLoose = 0;
   $('#shake').addEventListener('click', e => {
     const btn = e.currentTarget, r = btn.getBoundingClientRect();
-    const x0 = r.left + r.width / 2 + scrollX, y0 = r.top + r.height / 2 + scrollY;
-    const maxY = document.documentElement.scrollHeight - 20, maxX = document.documentElement.scrollWidth - 20;
+    const wr = world.getBoundingClientRect();
+    const x0 = r.left - wr.left + r.width / 2, y0 = r.top - wr.top + r.height / 2;
+    const maxY = world.scrollHeight - 20, maxX = world.clientWidth - 20;
     for (let i = 0; i < 40; i++) {
       const s = document.createElement('i');
       s.className = 'seed fly'; s.setAttribute('aria-hidden', 'true');
@@ -1062,14 +1150,44 @@
   }, reduce ? 60 : 420);
   loader.addEventListener('click', finish);
 
+  // ---- the scroll goes the wrong way ----
+  // #scroller is flipped and #unflip flips the content back, so wheel, keys and touch all move the page the wrong way.
+  const scroller = $('#scroller');
+  const inverted = () => !document.body.classList.contains('scroll-normal');
+  const worldTop = el => el.getBoundingClientRect().top - world.getBoundingClientRect().top;  // where el sits inside #world
+  const scrollTopFor = u => inverted() ? scroller.scrollHeight - u - scroller.clientHeight : u;
+  const goTo = (el, behavior = 'smooth') => scroller.scrollTo({ top: Math.max(0, scrollTopFor(worldTop(el))), behavior });
+  window.goTo = goTo;
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]'); if (!a || a.getAttribute('href').length < 2) return;
+    const el = document.getElementById(a.getAttribute('href').slice(1)); if (!el) return;
+    e.preventDefault(); goTo(el); history.replaceState(null, '', a.getAttribute('href'));
+  });
+  if (location.hash && document.getElementById(location.hash.slice(1))) setTimeout(() => goTo(document.getElementById(location.hash.slice(1)), 'auto'), 50);
+  $('#scrollmode').addEventListener('click', () => {
+    const st = scroller.scrollTop, H = scroller.scrollHeight, vh = scroller.clientHeight;
+    const normal = document.body.classList.toggle('scroll-normal');
+    scroller.style.scrollBehavior = 'auto'; scroller.scrollTop = H - st - vh; scroller.style.scrollBehavior = '';
+    $('#scrollmode').textContent = normal ? 'scroll: boring' : 'scroll: ↓ is ↑';
+    say(normal ? 'fine. boring scroll.' : 'down is up again.');
+  });
+  document.addEventListener('keydown', e => {
+    if (e.metaKey || e.ctrlKey || e.altKey || e.target.matches('input, textarea, select')) return;
+    const vh = scroller.clientHeight;
+    const map = { ArrowDown: 80, ArrowUp: -80, PageDown: vh * .9, PageUp: -vh * .9, ' ': e.shiftKey ? -vh * .9 : vh * .9, Home: -1e9, End: 1e9 };
+    if (!(e.key in map)) return;
+    e.preventDefault(); scroller.scrollBy({ top: map[e.key], behavior: 'smooth' });
+  });
+
   // ---- seasick: the whole site tilts as you scroll ----
   let tiltRaf = 0;
-  if (!reduce) addEventListener('scroll', () => {
+  if (!reduce) scroller.addEventListener('scroll', () => {
     cancelAnimationFrame(tiltRaf);
     tiltRaf = requestAnimationFrame(() => { if (world.classList.contains('flipped')) return;
       // pivot around the middle of the screen, so whatever you are reading stays in place and only rocks
-      world.style.transformOrigin = `50% ${scrollY + innerHeight / 2}px`;
-      world.style.transform = `rotate(${(Math.sin(scrollY / 350) * 2.2).toFixed(2)}deg)`; });
+      const mid = inverted() ? scroller.scrollHeight - scroller.scrollTop - innerHeight / 2 : scroller.scrollTop + innerHeight / 2;
+      world.style.transformOrigin = `50% ${mid}px`;
+      world.style.transform = `rotate(${(Math.sin(scroller.scrollTop / 350) * 2.2).toFixed(2)}deg)`; });
   }, { passive: true });
 
   // ---- melt when idle ----
@@ -1156,6 +1274,94 @@
       <div class="wb"><img src="${allPhotos[Math.floor(Math.random() * allPhotos.length)]}" alt=""><span>${popMsgs[Math.floor(Math.random() * popMsgs.length)]}</span></div>`;
     document.body.appendChild(p); makeWindow(p);
   }, 18000);
+
+  // ---- live data: the only numbers on this page that change without me ----
+  // hebcal.com for the Hebrew date and Shabbat times, api.github.com for this page's own history. no keys, no tracking.
+  const field = id => $(id).closest('div');
+  const done = (id, html) => { $(id).innerHTML = html; field(id).classList.remove('loading'); };
+  const failed = id => { done(id, 'offline<br><span class="spec">the order holds anyway</span>'); field(id).classList.add('failed'); };
+  const getJSON = async url => { const r = await fetch(url); if (!r.ok) throw new Error(r.status); return r; };
+  const now = new Date();
+  const ymd = `gy=${now.getFullYear()}&gm=${now.getMonth() + 1}&gd=${now.getDate()}`;
+  const nxt = new Date(now); if (now.getDay() === 6 && now.getHours() >= 19) nxt.setDate(nxt.getDate() + 1);
+  const ymdShabbat = `gy=${nxt.getFullYear()}&gm=${nxt.getMonth() + 1}&gd=${nxt.getDate()}`;
+  const hhmm = iso => iso.slice(11, 16);
+
+  getJSON(`https://www.hebcal.com/converter?cfg=json&${ymd}&g2h=1${now.getHours() >= 18 ? '&gs=on' : ''}`).then(r => r.json()).then(d => {
+    done('#hdate', `${d.hd} ${d.hm} ${d.hy}<br><span lang="he" dir="rtl">${d.hebrew}</span>`);
+    $('#swDate').textContent = `✦ היום ${d.hebrew} ✦ ${d.hd} ${d.hm} ${d.hy} ✦ `.repeat(6);
+  }).catch(() => failed('#hdate'));
+
+  getJSON(`https://www.hebcal.com/shabbat?cfg=json&geonameid=293397&M=on&${ymdShabbat}`).then(r => r.json()).then(d => {
+    const item = c => d.items.find(i => i.category === c);
+    const c = item('candles'), h = item('havdalah'), p = item('parashat');
+    if (!c || !h) throw new Error('no shabbat?');
+    const on = Date.now() >= Date.parse(c.date) && Date.now() <= Date.parse(h.date);
+    const he = p ? p.hebrew : '';
+    if (on) {
+      done('#shabbatDd', `now.<br><span lang="he" dir="rtl">שבת עכשיו. האתר נח.</span>`);
+      $('#shabbatHe').textContent = `שבת עכשיו. האתר נח. החתולים לא. ${he}.`;
+      $('#shabbatEn').textContent = '(it is shabbat right now. the site rests, the cats do not. live from hebcal.com)';
+      document.querySelectorAll('marquee').forEach(m => m.stop && m.stop());
+    } else {
+      done('#shabbatDd', `Fri ${hhmm(c.date)} – Sat ${hhmm(h.date)}<br><span lang="he" dir="rtl">${he}</span>`);
+      $('#shabbatHe').textContent = `הדלקת נרות ביום שישי ${hhmm(c.date)}, הבדלה ${hhmm(h.date)}, תל אביב. ${he}.`;
+      $('#shabbatEn').textContent = `(candles friday ${hhmm(c.date)}, havdalah ${hhmm(h.date)}, tel aviv. live from hebcal.com)`;
+    }
+    startClock(c, h, he);
+  }).catch(() => { failed('#shabbatDd'); $('#shabbatHe').textContent = 'אין אינטרנט, אבל שבת תגיע בכל מקרה.'; $('#swSub').textContent = 'the sky is not answering. shabbat will come anyway. refresh.'; });
+
+  function startClock(c, h, he) {
+    const wall = $('#shabat'), cT = Date.parse(c.date), hT = Date.parse(h.date);
+    const els = [$('#swD'), $('#swH'), $('#swM'), $('#swS')];
+    const set = (el, v) => {
+      const t = String(v).padStart(2, '0');
+      if (el.textContent === t) return;
+      el.textContent = t; el.classList.remove('flip'); void el.offsetWidth; el.classList.add('flip');
+    };
+    const update = () => {
+      const t = Date.now(), on = t >= cT && t <= hT;
+      let ms = Math.max(0, (on ? hT : cT) - t);
+      const d = Math.floor(ms / 864e5); ms -= d * 864e5;
+      const hh = Math.floor(ms / 36e5); ms -= hh * 36e5;
+      set(els[0], d); set(els[1], hh); set(els[2], Math.floor(ms / 6e4)); set(els[3], Math.floor(ms % 6e4 / 1000));
+      wall.classList.toggle('resting', on);
+      $('#swTitle').textContent = on ? 'שבת עכשיו' : 'שבת בעוד';
+      $('#swSub').textContent = on
+        ? `it is shabbat right now. the site is resting. this is the countdown to havdalah, ${hhmm(h.date)} in tel aviv. the cats are not resting.`
+        : `until candle lighting, friday ${hhmm(c.date)}, tel aviv.${he ? ' this week: ' + he + '.' : ''} tova is already in the kitchen. the saint-honoré is not.`;
+      const days = (cT - t) / 864e5;
+      wall.style.setProperty('--grow', on ? 1.6 : (1 + Math.max(0, Math.min(1, (7 - days) / 7)) * .5).toFixed(3));
+    };
+    update(); setInterval(update, 1000);
+  }
+
+  getJSON('https://api.github.com/repos/altmandania-ui/hit1/commits?per_page=30').then(r => r.json()).then(arr => {
+    const n = arr.length < 30 ? arr.length : '30+';
+    const dmy = iso => { const d = new Date(iso); return `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`; };
+    const first = x => x.commit.message.split('\n')[0];
+    const c = arr[0], msg = first(c);
+    done('#commitDd', `${dmy(c.commit.author.date)}<br><span class="spec">commit ${n} · “${msg.length > 60 ? msg.slice(0, 58) + '…' : msg}”</span>`);
+    $('#swGit').innerHTML = `this page has been edited <b>${n}</b> times. the cats were present for all of them. ✦ ` +
+      arr.map((x, i) => `<b>#${arr.length - i}</b> ${dmy(x.commit.author.date)} “${first(x)}”`).join(' ✦ ') + ' ✦ ';
+  }).catch(() => { failed('#commitDd'); $('#swGit').textContent = 'github is not answering. the history exists anyway.'; });
+
+  // ---- the order of the site is a decision. today the cats made it. ----
+  // the six middle blocks come in a different sequence on every visit, and one of them arrives upside down.
+  const units = [['#tpl', '#order'], ['.desktop'], ['#shabat'], ['#type'], ['#galery'], ['#yearbook']].map(sel => sel.map(q => $(q)));
+  function shuffleOrder() {
+    const arr = units.slice();
+    for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; }
+    const anchor = $('#position');
+    arr.forEach(u => u.forEach(el => world.insertBefore(el, anchor)));
+    document.querySelectorAll('.flipped-section').forEach(el => el.classList.remove('flipped-section'));
+    const flippable = arr.flat().filter(el => el.matches('#type, #galery, #yearbook'));
+    if (!reduce) flippable[Math.floor(Math.random() * flippable.length)].classList.add('flipped-section');
+    $('#orderToday').textContent = arr.map(u => u[0].dataset.fig).join(' → ') + ' → Fig. 3';
+  }
+  shuffleOrder();
+  $('#reorder').addEventListener('click', () => { shuffleOrder(); tick(900, .1, .1); say('the order has changed. again.'); });
+  document.querySelectorAll('.unflip-btn').forEach(b => b.addEventListener('click', () => { b.closest('section').classList.remove('flipped-section'); tick(500, .1, .1); }));
 </script>
 </body>
 </html>
